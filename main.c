@@ -8,7 +8,6 @@ int main( int argc, char **argv ) {
 	argumenty.b = 132292920;
 
 	printf( "Hello World! cos tam %d \n", argumenty.b );
-	arg_handling();
 
 
 #ifdef DEBUG
