@@ -1,2 +1,2 @@
 
-	void arg_handling( );
+int arg_handling( struct args*, int, char ** );

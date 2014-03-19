@@ -1,0 +1,5 @@
+
+
+	struct rules {
+		int b;
+	};

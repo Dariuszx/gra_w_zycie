@@ -1,8 +1,6 @@
-#include <stdio.h>
 #include "args.h"
 
-void arg_handling( ) {
+int arg_handling( struct args* argumenty, int argc, char **argv ) {
 
-	printf( "Coś tam i jeszcze cos tam.\n" );
-
+	return 0;
 }

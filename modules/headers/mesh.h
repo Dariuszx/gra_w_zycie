@@ -1,0 +1,4 @@
+
+	struct mesh {
+		int a;
+	};
