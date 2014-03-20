@@ -7,6 +7,7 @@ OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automat
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
 data_loading.o cellular_automaton.o data_saving.o image_generation.o : $(HEADERS)/mesh.h
 cellular_automaton.o : $(HEADERS)/rules.h
+main.o : $(HEADERS)/bool.h
 
 debug : CFLAGS += -DDEBUG
 
@@ -50,3 +51,4 @@ image_generation.o: $(LIBS)/image_generation.c
 
 clean:
 	rm *.o
+	rm ../modules/headers/*.gch
