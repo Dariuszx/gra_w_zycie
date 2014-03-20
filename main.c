@@ -15,7 +15,7 @@ int main( int argc, char **argv ) {
 
 	bool wczytaj_modul = true; /* ustawiam zmienną na true, zezwalając na wywoływanie modułów */
 	int modul_id = 0; /* rozpoczynam łądowanie modułów od identyfikatora modułu 0, dzięki numerowaniu modułów mogę łatwo określić kolejność wywoływania */
-	int error_code = 0;
+	error error_code = FINE;
 
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul ) {
