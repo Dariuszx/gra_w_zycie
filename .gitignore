@@ -1,2 +1,5 @@
 *.o
-*.swp 
+*.swp
+*.gch
+gra_w_zycie
+debug 
