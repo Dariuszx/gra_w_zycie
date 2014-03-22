@@ -1,37 +1,52 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
+#include <string.h>
 #include "args.h"
 #include "error_handling.h"
 
 error arg_handling( struct args* argumenty, int argc, char **argv ) {
 
-	#ifdef DEBUG
-		printf( "Wchodzę do modułu arg_handling\n" ); 
-	#endif
-	
 	int opt;
 
-	argumenty = malloc( sizeof *argumenty );
-	if ( argumenty == NULL ) return MALLOC_ERROR;
+	#ifdef DEBUG
+		printf( "\nWchodzę do modułu arg_handling\n" ); 
+	#endif
 
-	while( ( opt = getopt( argc, argv, "f:n:" ) ) != -1 ) {
+	argumenty->file_in = NULL;
+	argumenty->file_out = NULL;
+	argumenty->image_name = NULL;
 
+	while( ( opt = getopt( argc, argv, "f:n:k:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'f':
-				if ( (argumenty->file_in = fopen( optarg, "r" )) == NULL ) {
-					printf( "Nie udało się otworzyć pliku: %s.\n", optarg );
-					return FOPEN_ERROR;
-				}
-			break;
+				argumenty->file_in = optarg;
+				#ifdef DEBUG
+					printf( "\tPodana nazwa pliku z danymi to: %s.\n", argumenty->file_in );
+				#endif
+				break;
 			case 'n':
+				#ifdef DEBUG
+					printf( "\tPodana liczba generacji to: %s.\n", optarg );
+				#endif
 				if ( (argumenty->n = atoi( optarg )) <= 0 ) {
-					printf( "Podano nieprawidłową licznę generacji -n.\n" );
-					return OUT_OF_RANGE;
+					argumenty->n = N_DEFAULT; /* jeżeli podano nieprawidłową liczbe przypisuję wartość domyślną */
 				}
-			break;
+				break;
+			case 'k':
+				#ifdef DEBUG
+					printf( "\tPodana liczba generowanych obrazków to: %s.\n", optarg );
+				#endif
+				if ( (argumenty->k = atoi( optarg )) <= 0 ) {
+					argumenty->k = K_DEFAULT; /* jeżeli nie podano prawidłowej liczby przypisuję wartość domyślną */
+				}
+				break;
 		}
 	}
+	
+	if (argumenty->file_in == NULL ) argumenty->file_in = FILE_IN_DEFAULT;
+	if (argumenty->file_out == NULL ) argumenty->file_out = FILE_OUT_DEFAULT;
+	if (argumenty->image_name == NULL ) argumenty->image_name = IMAGE_NAME_DEFAULT;
 
 	#ifdef DEBUG
 		printf( "Wychodzę z modułu arg_handling\n" );
