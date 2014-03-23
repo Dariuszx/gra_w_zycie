@@ -4,9 +4,10 @@
 	#include "mesh.h"
 	#include "args.h"
 	#include "rules.h"
+	#include "error_handling.h"
 
-	int cellular_automaton( struct mesh*, struct args* );
-	int select_rules( struct args*, struct rules* );
-	int formation_generation( struct mesh*, struct args*, struct rules* );
+	error cellular_automaton( struct mesh*, struct args* );
+	error select_rules( struct args*, struct rules* );
+	error formation_generation( struct mesh*, struct args*, struct rules* );
 
 #endif
