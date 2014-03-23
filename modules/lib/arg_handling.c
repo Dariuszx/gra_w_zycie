@@ -16,6 +16,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->file_in = NULL;
 	argumenty->file_out = NULL;
 	argumenty->image_name = NULL;
+	argumenty->rules = NULL;
 
 	while( ( opt = getopt( argc, argv, "f:n:k:" ) ) != -1 ) {
 		switch( opt ) {
@@ -47,6 +48,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	if (argumenty->file_in == NULL ) argumenty->file_in = FILE_IN_DEFAULT;
 	if (argumenty->file_out == NULL ) argumenty->file_out = FILE_OUT_DEFAULT;
 	if (argumenty->image_name == NULL ) argumenty->image_name = IMAGE_NAME_DEFAULT;
+	if (argumenty->rules == NULL ) argumenty->rules = RULES_DEFAULT;
 
 	#ifdef DEBUG
 		printf( "Wychodzę z modułu arg_handling\n" );

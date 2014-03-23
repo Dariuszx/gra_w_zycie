@@ -1,7 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "args.h"
 #include "mesh.h"
+#include "rules.h"
+#include "error_handling.h"
+#include "data_saving.h"
+#include "image_generation.h"
 
-int cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
+error select_rules( struct args* argumenty, struct rules* zasady ) {
 
-	return 0;
+	FILE *file_rules;
+	int cell_status; /* żywa lub martwa, 0/1 */
+	int elements; /* liczba zasad dla dla komórki żywej/martwej */
+	int rule; /* zasada przejścia */
+	int i;
+	int *temp;
+
+	zasady->living_cell = NULL;
+	zasady->dead_cell = NULL;
+
+	#ifdef DEBUG
+		printf( "\tWczytuję plik z zasadami generacji.\n" );
+	#endif
+
+	if( (file_rules = fopen( argumenty->rules, "r" )) == NULL ) {
+		printf( "*Nie udało się otworzyć pliku z zasadami generacji: %s.\n", argumenty->rules );
+		return FOPEN_ERROR;
+	}
+
+	while( 1 ) {	
+		if( fscanf( file_rules, "%d %d", &cell_status, &elements ) != 2 ) {
+			printf( "*Niepoprawny format danych wejściowych pliku z zasadami (1): %s.\n", argumenty->rules );
+			return FORMAT_ERROR;
+		}
+
+		if( (cell_status != 1 && cell_status != 0) || elements < 0 ) {
+			printf( "*Niepoprawny format danych wejściowych pliku z zasadami (2): %s.\n", argumenty->rules );
+			return FORMAT_ERROR;
+		}
+	
+		if( cell_status == 1 ) {
+			if( zasady->living_cell != NULL ) break;
+			if ( (zasady->living_cell = malloc( elements * sizeof * zasady->living_cell )) == NULL ) return MALLOC_ERROR;
+			zasady->living_elements = elements;
+			temp = zasady->living_cell;
+		} else if( cell_status == 0 ) {
+			if( zasady->dead_cell != NULL ) break;
+            if ( (zasady->dead_cell = malloc( elements * sizeof * zasady->dead_cell )) == NULL ) return MALLOC_ERROR;
+            zasady->dead_elements = elements;
+			temp = zasady->dead_cell;
+		}
+
+		for( i=0; i<elements; i++ ) {
+			if( ( fscanf( file_rules, "%d", &temp[i] ) != 1) || temp[i] > 8 || temp[i] < 0 ) {
+				printf( "*Niepoprawny format danych wejściowych pliku z zasadami (3): %s.\n", argumenty->rules );
+				return FORMAT_ERROR;
+			}  
+		}
+		if( zasady->dead_cell != NULL && zasady->living_cell != NULL ) break;
+	}
+
+	#ifdef DEBUG
+		printf( "\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa:\n\t\t" );
+		for( i=0; i<zasady->living_elements; i++ )
+			printf( "%d ", zasady->living_cell[i] );
+
+		printf( "\n\tIlość sądiadów żywych dla komórki martwej, aby komórka stała się żywa:\n\t\t" );
+		for( i=0; i<zasady->dead_elements; i++ )
+			printf( "%d ", zasady->dead_cell[i] );
+
+		printf( "\n" );
+	#endif
+	
+	return FINE;
+}
+
+error formation_generation( struct mesh* siatka, struct args* argumenty, struct rules* zasady ) {
+
+	return FINE;
+}
+
+error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
+
+	struct rules zasady;
+	error status;
+	
+	#ifdef DEBUG
+		printf( "Wchodzę do modułu cellular_automaton.\n" );
+	#endif
+
+
+	if( (status =select_rules( argumenty, &zasady )) != FINE ) return status;  
+
+
+	#ifdef DEBUG
+		printf( "Wychodzę z modułu cellular_automaton.\n" );
+	#endif
+
+	return FINE;
 }

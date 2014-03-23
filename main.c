@@ -16,7 +16,7 @@ int main( int argc, char **argv ) {
 	error error_code = FINE;
     
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
-    struct mesh siatka; /* struktura siatki */;
+	struct mesh siatka; /* struktura siatki */;
 
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul == true ) {
@@ -28,15 +28,10 @@ int main( int argc, char **argv ) {
 				error_code = data_loading( &siatka, argumenty.file_in ); /* ładuję moduł data_loading, czyli wczytuję dane z pliku */	
 				break;
 			case 10:
-			
+				error_code = cellular_automaton( &siatka, &argumenty );	
 				break;
-			case 15:
-
-				break;	
-			case 16: /* jeżeli zmienna modul_id przekroczy jakąś wartość wychodzę z funkcji ładującej moduły */
+			case 15: /* jeżeli zmienna modul_id przekroczy jakąś wartość wychodzę z funkcji ładującej moduły */
 				wczytaj_modul = false;
-				break;
-			default:				
 				break;
 		}
 		if ( error_handling( error_code ) ) return 1; /* krytyczny błąd, zamykam program */
