@@ -18,7 +18,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->image_name = NULL;
 	argumenty->rules = NULL;
 
-	while( ( opt = getopt( argc, argv, "f:n:k:" ) ) != -1 ) {
+	while( ( opt = getopt( argc, argv, "f:n:k:r:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'f':
 				argumenty->file_in = optarg;
@@ -41,6 +41,12 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				if ( (argumenty->k = atoi( optarg )) <= 0 ) {
 					argumenty->k = K_DEFAULT; /* jeżeli nie podano prawidłowej liczby przypisuję wartość domyślną */
 				}
+				break;
+			case 'r':
+				argumenty->rules = optarg;
+			   	#ifdef DEBUG
+             		printf( "\tPodany plik z zasadami to: %s.\n", argumenty->rules );
+               	#endif
 				break;
 		}
 	}
