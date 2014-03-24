@@ -5,6 +5,7 @@
 #include "rules.h"
 #include "error_handling.h"
 
+/* Funkcja ma za zadanie wczytywanie zasad przekształceń generacji */
 error select_rules( struct args* argumenty, struct rules* zasady ) {
 
 	FILE *file_rules;

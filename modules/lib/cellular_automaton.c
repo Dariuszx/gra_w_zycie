@@ -29,6 +29,9 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 	/* Tutaj przeprowadzam 'argumenty->n' kolejnych generacji */
 	for( i=0; i < argumenty->n; i++ ) {
 		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
+
+		/* TODO zapisywanie do obrazka, nowy moduł */
+
 	}
 
 	#ifdef DEBUG
