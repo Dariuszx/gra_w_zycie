@@ -8,6 +8,6 @@
 
 	error cellular_automaton( struct mesh*, struct args* );
 	error select_rules( struct args*, struct rules* );
-	error formation_generation( struct mesh*, struct args*, struct rules* );
+	error formation_generation( struct mesh*, struct rules* );
 
 #endif

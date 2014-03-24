@@ -17,6 +17,8 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->file_out = NULL;
 	argumenty->image_name = NULL;
 	argumenty->rules = NULL;
+	argumenty->n = N_DEFAULT;
+	argumenty->k = K_DEFAULT;
 
 	while( ( opt = getopt( argc, argv, "f:n:k:r:" ) ) != -1 ) {
 		switch( opt ) {

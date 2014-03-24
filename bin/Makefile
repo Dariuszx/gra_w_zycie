@@ -1,8 +1,8 @@
 CC =
-CFLAGS = -Wall -ansi -pedantic
+CFLAGS = -ansi -pedantic
 HEADERS = ../modules/headers
 LIBS = ../modules/lib
-OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o 
+OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o 
 
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
 data_loading.o cellular_automaton.o data_saving.o image_generation.o : $(HEADERS)/mesh.h
@@ -10,7 +10,7 @@ cellular_automaton.o : $(HEADERS)/rules.h
 main.o : $(HEADERS)/bool.h
 arg_handling.o cellular_automaton.o : $(HEADERS)/error_handling.h
 
-debug : CFLAGS += -DDEBUG
+debug : CFLAGS += -Wall -DDEBUG
 debug : CC += cc
 
 debug: $(OBJECTS)

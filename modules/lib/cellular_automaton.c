@@ -11,9 +11,11 @@
 /* Główna funkcja odpowiadająca za generowanie kolejnych generacji komórek */
 error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 
-	struct rules zasady;
+	struct rules zasady;	
+	struct mesh siatka_tmp;
 	error status;
-	
+	int i;	
+
 	#ifdef DEBUG
 		printf( "Wchodzę do modułu cellular_automaton.\n" );
 	#endif
@@ -21,6 +23,12 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 	/* Wybieram zasady przejścia */
 	if( ( status = select_rules( argumenty, &zasady )) != FINE ) return status;  
 
+	siatka_tmp = *siatka;
+	
+	/* Tutaj przeprowadzam argumenty->n kolejnych generacji */
+	for( i=0; i < argumenty->n; i++ ) {
+		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
+	}
 
 	#ifdef DEBUG
 		printf( "Wychodzę z modułu cellular_automaton.\n" );
