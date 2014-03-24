@@ -23,9 +23,10 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 	/* Wybieram zasady przejścia */
 	if( ( status = select_rules( argumenty, &zasady )) != FINE ) return status;  
 
-	siatka_tmp = *siatka;
+	/* kopiuję siatkę */
+	if( (status = copy_mesh( siatka, &siatka_tmp )) != FINE ) return status;
 	
-	/* Tutaj przeprowadzam argumenty->n kolejnych generacji */
+	/* Tutaj przeprowadzam 'argumenty->n' kolejnych generacji */
 	for( i=0; i < argumenty->n; i++ ) {
 		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
 	}

@@ -8,6 +8,7 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 	FILE* filein;
 	int i,j,x,y;
 	int c;
+	error status;
 
 	#ifdef DEBUG
 		printf( "\nWchodzę do modułu data_loading.\n" );
@@ -20,25 +21,21 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 	}
 
 	/* czytam pierwszą linie pliku zawierającą rozmiar siatki (x,y) */
-	if ( fscanf( filein, "%d %d", &siatka->x, &siatka->y) != 2 ) {
+	if ( fscanf( filein, "%d %d", &x, &y) != 2 ) {
 		printf( "*Błędny format danych wejściowych pliku: %s.\n", file_in );
 		return FORMAT_ERROR;
 	}
 
 	/* sprawdzam czy użytkownik nie podał zbyt dużych lub nieprawidłowych rozmiarów tablicy */
-	if ( siatka->x > MAX_X || siatka->y > MAX_Y || siatka->x <= 0 || siatka->y <= 0 ) {
+	if ( x > MAX_X || y > MAX_Y || x <= 0 || y <= 0 ) {
 		printf( "*W pliku wejściowym zdefiniowano nieakceptowalne rozmiary siatki.\n" );
 		return OUT_OF_RANGE;
 	}
-
-	/* Tworzę tablicę siatki */
-	if( ( siatka->siatka = malloc( siatka->x * sizeof *siatka->siatka ) ) == NULL ) return MALLOC_ERROR;
-		
-	for( j=0; j < siatka->x; j++ )
-		if( ( siatka->siatka[j] = calloc( siatka->y, sizeof *siatka->siatka[j] ) ) == NULL ) return MALLOC_ERROR;
-
-	/* Wczytuję dane */
 	
+	/* Tworzę siatkę */
+	if( (status = make_mesh( siatka, x, y )) != FINE ) return status;	
+	
+	/* Wczytuję dane */
 		while ( c = fscanf( filein, "%d %d", &x, &y ) ) {
 		
 		if( c == EOF ) break; /* jeżeli nie odczytano 2 poprawnych współrzędnych */

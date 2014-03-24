@@ -4,10 +4,50 @@
 #include "rules.h"
 #include "error_handling.h"
 
+
+int neighborhood( struct mesh* siatka, int x, int y ) {
+
+	int living_count = 0;
+	int x1, y1;
+
+	for( y1=-1; y1 <= 1; y1++ ) {
+		for( x1=-1; x1 <= 1; x1++ ) {
+			if( x+x1 >= 0 && y+y1 >= 0 && x+x1 < siatka->x && y+y1 < siatka->y && ( x1 != 0 || y1 != 0 ) ) {
+				living_count += siatka->siatka[x+x1][y+y1];
+			}		
+		}
+	} 
+	return living_count;
+}
+
+int generate( int cell, int neighbors, struct rules *zasady ) {
+
+	int i;	
+
+	if( cell == 0 ) {
+		for( i=0; i < zasady->dead_elements; i++ )
+			if( zasady->dead_cell[i] == neighbors ) cell = 1;
+	} else if( cell == 1 ) {
+		for( i=0; i < zasady->living_elements; i++ )
+			if( zasady->living_cell[i] == neighbors ) cell = 1;
+	}
+
+	return cell;
+}
+
 error formation_generation( struct mesh* siatka, struct rules* zasady ) {
 
-	struct mesh siatka_tmp = *siatka; /* na podstawie siatki pierwotnej 'siatka_tmp' będe zapisywał kolejną generację do 'siatka'  */
+	struct mesh siatka_tmp; /* na podstawie siatki pierwotnej 'siatka_tmp' będe zapisywał kolejną generację do 'siatka'  */
+	int x,y;
+	error status;
 
+	if( (status = copy_mesh( siatka, &siatka_tmp )) != FINE ) return status; 
+
+	for( y=0; y < siatka->y; y++ ) {
+		for( x=0; x < siatka->x; x++ ) {
+				siatka->siatka[x][y] = generate( siatka_tmp.siatka[x][y], neighborhood( &siatka_tmp, x, y ), zasady );
+		}
+	}
 	
 	return FINE;
 }

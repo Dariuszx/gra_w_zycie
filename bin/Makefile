@@ -2,13 +2,13 @@ CC =
 CFLAGS = -ansi -pedantic
 HEADERS = ../modules/headers
 LIBS = ../modules/lib
-OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o 
+OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o 
 
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
-data_loading.o cellular_automaton.o data_saving.o image_generation.o : $(HEADERS)/mesh.h
+data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o: $(HEADERS)/mesh.h
 cellular_automaton.o : $(HEADERS)/rules.h
 main.o : $(HEADERS)/bool.h
-arg_handling.o cellular_automaton.o : $(HEADERS)/error_handling.h
+arg_handling.o cellular_automaton.o mesh.o: $(HEADERS)/error_handling.h
 
 debug : CFLAGS += -Wall -DDEBUG
 debug : CC += cc
@@ -23,6 +23,9 @@ gra_w_zycie: $(OBJECTS)
 	@$(CC) -o $@ $^
 
 main.o: ../main.c
+	@echo "Kompiluję moduł $@"
+	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
+mesh.o: $(LIBS)/mesh.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
 
