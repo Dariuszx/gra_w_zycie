@@ -31,8 +31,10 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
 
 		/* TODO zapisywanie do obrazka, nowy moduł */
-
 	}
+
+	/* Zapisuję osatnią wygenerowaną siatkę do pliku */
+	if( (status = data_saving( &siatka_tmp, argumenty->file_out )) != FINE ) return status; 
 
 	#ifdef DEBUG
 		printf( "Wychodzę z modułu cellular_automaton.\n" );

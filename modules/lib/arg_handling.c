@@ -20,7 +20,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->n = N_DEFAULT;
 	argumenty->k = K_DEFAULT;
 
-	while( ( opt = getopt( argc, argv, "f:n:k:r:" ) ) != -1 ) {
+	while( ( opt = getopt( argc, argv, "f:n:k:r:o:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'f':
 				argumenty->file_in = optarg;
@@ -48,6 +48,12 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				argumenty->rules = optarg;
 			   	#ifdef DEBUG
              		printf( "\tPodany plik z zasadami to: %s.\n", argumenty->rules );
+               	#endif
+				break;
+			case 'o':
+				argumenty->file_out = optarg;
+			   	#ifdef DEBUG
+               		printf( "\tPodana nazwa pliku z danymi to: %s.\n", argumenty->file_out );
                	#endif
 				break;
 		}

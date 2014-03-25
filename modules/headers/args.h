@@ -6,7 +6,7 @@
 	#define K_DEFAULT 10
 	#define N_DEFAULT 100
 	#define FILE_IN_DEFAULT "a"
-	#define FILE_OUT_DEFAULT "b"
+	#define FILE_OUT_DEFAULT "mesh"
 	#define IMAGE_NAME_DEFAULT "img"
 	#define RULES_DEFAULT "zasady"
 

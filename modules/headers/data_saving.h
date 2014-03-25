@@ -2,7 +2,8 @@
 	#define DATA_SAVING
 
 	#include "mesh.h"
+	#include "error_handling.h"
 
-	int data_saving( struct mesh*, char* );
+	error data_saving( struct mesh*, char* );
 
 #endif
