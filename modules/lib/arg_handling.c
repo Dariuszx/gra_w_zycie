@@ -4,13 +4,14 @@
 #include <string.h>
 #include "args.h"
 #include "error_handling.h"
+#include "graphics.h"
 
 error arg_handling( struct args* argumenty, int argc, char **argv ) {
 
 	int opt;
 
 	#ifdef DEBUG
-		printf( "\nWchodzę do modułu arg_handling\n" ); 
+		message( "\n#Wchodzę do modułu arg_handling\n", GREEN ); 
 	#endif
 
 	argumenty->file_in = NULL;
@@ -19,6 +20,8 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->rules = NULL;
 	argumenty->n = N_DEFAULT;
 	argumenty->k = K_DEFAULT;
+	argumenty->x_resolution = X_RESOLUTION;
+	argumenty->y_resolution = Y_RESOLUTION;
 
 	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:" ) ) != -1 ) {
 		switch( opt ) {
@@ -71,7 +74,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	if (argumenty->rules == NULL ) argumenty->rules = RULES_DEFAULT;
 
 	#ifdef DEBUG
-		printf( "Wychodzę z modułu arg_handling\n" );
+		message( "#Wychodzę z modułu arg_handling\n", GREEN );
 	#endif
 	
 	return FINE;

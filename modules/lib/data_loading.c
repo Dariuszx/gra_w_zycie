@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "mesh.h"
 #include "error_handling.h"
+#include "graphics.h"
 
 error data_loading( struct mesh* siatka, char* file_in ) {
 
@@ -11,7 +12,7 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 	error status;
 
 	#ifdef DEBUG
-		printf( "\nWchodzę do modułu data_loading.\n" );
+		message( "\n#Wchodzę do modułu data_loading.\n", GREEN );
 		printf( "\tOtwieram plik z danymi %s.\n", file_in );
 	#endif
 	
@@ -58,7 +59,7 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 		}
 		printf( "\n" );
 	}
-		printf( "Wychodzę z modułu data_loading.\n" );
+		message( "#Wychodzę z modułu data_loading.\n", GREEN );
 	#endif
 
 	return FINE;

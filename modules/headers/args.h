@@ -16,6 +16,8 @@
 		char *rules;
 		char *image_name;
 		char *image_folder;
+		int x_resolution;
+		int y_resolution;
 		int n; /* ilość generacji */
 		int k; /* liczba obrazków do wygenerowania */
 	};

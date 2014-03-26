@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "graphics.h"
 #include "args.h"
 #include "mesh.h"
 #include "rules.h"
@@ -18,7 +19,7 @@ error select_rules( struct args* argumenty, struct rules* zasady ) {
 	zasady->dead_cell = NULL;
 
 	#ifdef DEBUG
-		printf( "\tWczytuję plik z zasadami generacji.\n" );
+		message("\t#Wczytuję plik z zasadami generacji.\n", GREEN );
 	#endif
 
 	if( (file_rules = fopen( argumenty->rules, "r" )) == NULL ) {
@@ -59,13 +60,13 @@ error select_rules( struct args* argumenty, struct rules* zasady ) {
 	}
 
 	#ifdef DEBUG
-		printf( "\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa:\n\t\t" );
+		printf( "\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa: " );
 		for( i=0; i<zasady->living_elements; i++ )
-			printf( "%d ", zasady->living_cell[i] );
+			printf( "%s%d%s ", COLOR_RED, zasady->living_cell[i], COLOR_RESET );
 
-		printf( "\n\tIlość sądiadów żywych dla komórki martwej, aby komórka stała się żywa:\n\t\t" );
+		printf( "\n\tIlość sądiadów żywych dla komórki martwej, aby komórka stała się żywa: " );
 		for( i=0; i<zasady->dead_elements; i++ )
-			printf( "%d ", zasady->dead_cell[i] );
+			printf( "%s%d%s ", COLOR_RED, zasady->dead_cell[i], COLOR_RESET );
 
 		printf( "\n" );
 	#endif

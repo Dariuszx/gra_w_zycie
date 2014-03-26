@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "mesh.h"
 #include "error_handling.h"
+#include "graphics.h"
 
 #define PATH_LENGHT 64
 
@@ -56,8 +57,9 @@ error make_dir( char *folder, char *image_folder ) {
 	return FINE;
 }
 
-error generate_ppm( struct mesh* siatka, char* folder, int count ) {
 
-	
+error generate_image( struct mesh* siatka, struct graphics* screen_setttings, char* folder, int count ) {
+
+
 	return FINE;
 }
