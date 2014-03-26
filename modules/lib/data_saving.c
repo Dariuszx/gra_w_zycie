@@ -9,7 +9,7 @@
 
 error data_saving( struct mesh* siatka, char* file_out ) {
 
-	char path[64] = "data/";
+	char path[PATH_LENGHT] = "data/";
 	int lenght; /* długość ścieżki pliku do zapisu */
 	FILE *file;
 	int x, y;

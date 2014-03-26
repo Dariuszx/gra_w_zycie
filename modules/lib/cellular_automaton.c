@@ -14,7 +14,10 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 	struct rules zasady;	
 	struct mesh siatka_tmp;
 	error status;
-	int i;	
+	int i;
+	double dk_count = (double)argumenty->n / argumenty->k; /* odstęp pomiędzy kolejnymi generacjami, gdzie miałbym tworzyć obrazy siatki */
+	int ik_count = 1; /* tutaj zliczam ile obrazków wygenerowałem */
+
 
 	#ifdef DEBUG
 		printf( "Wchodzę do modułu cellular_automaton.\n" );
@@ -25,12 +28,19 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty ) {
 
 	/* kopiuję siatkę */
 	if( (status = copy_mesh( siatka, &siatka_tmp )) != FINE ) return status;
+
+	/* Tworzę folder przechowujący obrazki */
+	if( (status = make_dir( argumenty->image_name, argumenty->image_folder )) != FINE ) return status;
 	
 	/* Tutaj przeprowadzam 'argumenty->n' kolejnych generacji */
 	for( i=0; i < argumenty->n; i++ ) {
 		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
-
-		/* TODO zapisywanie do obrazka, nowy moduł */
+			/* sprawdzam czy z aktualnej generacji muszę stworzyć obrazek */
+			if( (i+1) >= ik_count * dk_count || i == 0 ) { 
+				/* tworzę obrazek */
+				if( (status = generate_ppm( &siatka_tmp, argumenty->image_folder, ik_count )) != FINE ) return status;
+				ik_count++; /* zwiększam licznik ilości obrazków */
+			}	
 	}
 
 	/* Zapisuję osatnią wygenerowaną siatkę do pliku */

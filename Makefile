@@ -9,3 +9,6 @@ debug:
 clean: 	
 	@cd bin; make clean
 
+clean_data:
+	cd data; rm -r *
+

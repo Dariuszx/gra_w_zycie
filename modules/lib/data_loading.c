@@ -51,7 +51,8 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 		printf( "\t" );
 		for( j=0; j < siatka->y; j++ ) {
 			for( i=0; i < siatka->x; i++ ) {
-				printf( "%d ", siatka->siatka[i][j] );		
+				if( siatka->siatka[i][j] == 1 )printf( "1 " );
+				else printf( ". " );		
 			}
 			printf( "\n\t" );
 		}

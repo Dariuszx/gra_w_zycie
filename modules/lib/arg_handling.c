@@ -20,7 +20,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->n = N_DEFAULT;
 	argumenty->k = K_DEFAULT;
 
-	while( ( opt = getopt( argc, argv, "f:n:k:r:o:" ) ) != -1 ) {
+	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'f':
 				argumenty->file_in = optarg;
@@ -56,6 +56,12 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
                		printf( "\tPodana nazwa pliku z danymi to: %s.\n", argumenty->file_out );
                	#endif
 				break;
+		   	case 'i':
+               	argumenty->image_name = optarg;
+               	#ifdef DEBUG
+               	    printf( "\tPodana nazwa folderu do przechowywania obrazów: %s.\n", argumenty->image_name );
+               	#endif
+               	break;
 		}
 	}
 	

@@ -8,7 +8,7 @@ main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
 data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o: $(HEADERS)/mesh.h
 cellular_automaton.o : $(HEADERS)/rules.h
 main.o : $(HEADERS)/bool.h
-arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o: $(HEADERS)/error_handling.h
+arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o: $(HEADERS)/error_handling.h
 
 debug : CFLAGS += -Wall -DDEBUG
 debug : CC += cc
