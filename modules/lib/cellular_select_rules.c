@@ -60,11 +60,11 @@ error select_rules( struct args* argumenty, struct rules* zasady ) {
 	}
 
 	#ifdef DEBUG
-		printf( "\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa: " );
+		printf( "\t\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa: " );
 		for( i=0; i<zasady->living_elements; i++ )
 			printf( "%s%d%s ", COLOR_RED, zasady->living_cell[i], COLOR_RESET );
 
-		printf( "\n\tIlość sądiadów żywych dla komórki martwej, aby komórka stała się żywa: " );
+		printf( "\n\t\tIlość sądiadów żywych dla komórki martwej, aby komórka stała się żywa: " );
 		for( i=0; i<zasady->dead_elements; i++ )
 			printf( "%s%d%s ", COLOR_RED, zasady->dead_cell[i], COLOR_RESET );
 

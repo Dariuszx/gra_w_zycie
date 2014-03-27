@@ -12,7 +12,7 @@ arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_ha
 main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o : $(HEADERS)/graphics.h
 
 debug : CFLAGS += -Wall -DDEBUG
-debug : CC += cc
+debug : CC += @cc
 
 debug: $(OBJECTS)
 	@echo "Łącze moduły *.o"

@@ -6,8 +6,9 @@
 
 	#include "mesh.h"
 	#include "error_handling.h"
+	#include "graphics.h"
 
 	error make_dir( char*, char* );
-	error generate_image( struct mesh*, char*, int );
+	error generate_image( struct mesh*, struct graphics*, char*, int );
 
 #endif

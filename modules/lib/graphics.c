@@ -38,12 +38,12 @@ error set_graphics_settings( struct graphics* screen_settings, struct mesh* siat
   	height = &screen_settings->y_resolution;
 
     max_res_mesh = siatka->x >= siatka->y ? siatka->x : siatka->y; /* zapisuję największy rozmiar */
-    min_res_screen = *width <= *height ? *width : *height;
+    min_res_screen = (*width-siatka->x) <= (*height-siatka->y) ? *width-siatka->x : *height-siatka->y;
 
     screen_settings->cell_size = min_res_screen / max_res_mesh; /* obliczam rozmiar komórki */
 
-	screen_settings->mesh_res_x = screen_settings->cell_size * siatka->x;
-    screen_settings->mesh_res_y = screen_settings->cell_size * siatka->y;
+	screen_settings->mesh_res_x = screen_settings->cell_size * siatka->x + siatka->x;
+    screen_settings->mesh_res_y = screen_settings->cell_size * siatka->y + siatka->y;
 
 
 	screen_settings->mesh_on_screen_x = (*width -  screen_settings->mesh_res_x)/2; 

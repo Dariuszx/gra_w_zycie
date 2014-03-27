@@ -7,7 +7,62 @@
 #include "error_handling.h"
 #include "graphics.h"
 
-#define PATH_LENGHT 64
+#define PATH_LENGHT 128
+
+
+error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int count ) {
+
+	char image_name[PATH_LENGHT];
+	FILE *file;	
+	int x, y;
+	int ratio_x, ratio_y;	
+
+	static unsigned char color[3];
+	int xmc = s->mesh_on_screen_x;
+    int ymc = s->mesh_on_screen_y;
+	
+	sprintf( image_name, "%s/img%d.ppm", folder, count );
+
+	if( ( file = fopen( image_name, "wb" )) == NULL ) return FOPEN_ERROR;
+
+	fprintf( file, "P6\n%d %d\n255\n", s->x_resolution, s->y_resolution );
+
+	for( y = 0; y < s->y_resolution; y++ ) {
+		for( x = 0; x < s->x_resolution; x++ ) {
+			 
+			if( x >= xmc && x <= (s->x_resolution - xmc) && y >= ymc && y <= ( s->y_resolution - ymc ) ) {
+				
+				/* krawędzie komórek */	
+				if( (x - xmc)%(s->cell_size+1) == 0 || (y - ymc)%(s->cell_size+1) == 0 ) {
+                    color[0]= 66; /* red */
+                    color[1]= 66; /* green */
+                    color[2]= 66; /* blue */
+				} else {
+					ratio_x = (x - xmc) / (s->cell_size+1);
+                	ratio_y = (y - ymc) / (s->cell_size+1); 
+					
+					if( siatka->siatka[ratio_x][ratio_y] == 1 ) {
+						color[0]= 49; 
+            			color[1]= 101; 
+            			color[2]= 148; 
+					} else {
+			         	color[0]= 204; 
+                        color[1]= 204; 
+                        color[2]= 204; 
+					}
+					
+				}
+			} else {  	
+          		color[0]= 0; /* red */
+           		color[1]= 0; /* green */
+          		color[2]= 0; /* blue */
+			}
+          	fwrite( color, 1, 3, file );			
+		}
+	}
+
+    return FINE;
+}
 
 error make_dir( char *folder, char *image_folder ) {
 
@@ -52,14 +107,7 @@ error make_dir( char *folder, char *image_folder ) {
         return MKDIR_ERROR;
     }
 
-	image_folder = path;
-
-	return FINE;
-}
-
-
-error generate_image( struct mesh* siatka, struct graphics* screen_setttings, char* folder, int count ) {
-
+	sprintf( image_folder, "%s", path);
 
 	return FINE;
 }

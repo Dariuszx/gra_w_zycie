@@ -36,22 +36,25 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty, struct gr
 	
 	/* Tutaj przeprowadzam 'argumenty->n' kolejnych generacji */
 	for( i=0; i < argumenty->n; i++ ) {
-		/* Tworzę kolejną generację. */	
-		if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status; 
 			
-			/* sprawdzam czy z aktualnej generacji muszę stworzyć obrazek */
-			if( (i+1) >= ik_count * dk_count || i == 0 ) { 
-				/* tworzę obrazek */
-				if( (status = generate_image( &siatka_tmp, argumenty->image_folder, ik_count )) != FINE ) return status;
-				ik_count++; /* zwiększam licznik ilości obrazków */
-			}	
+		/* sprawdzam czy z aktualnej generacji muszę stworzyć obrazek */
+		if( (i+1) >= ik_count * dk_count || i == 0 ) { 
+			
+			/* Tworzę obrazek */ 
+			if( (status = generate_image( &siatka_tmp, screen_settings, argumenty->image_folder, ik_count )) != FINE ) return status;
+			ik_count++; /* zwiększam licznik ilości obrazków */
+		}	
+
+		/* Tworzę kolejną generację. */
+        if( (status = formation_generation( &siatka_tmp, &zasady )) != FINE ) return status;
+
 	}
 
 	/* Zapisuję osatnią wygenerowaną siatkę do pliku */
 	if( (status = data_saving( &siatka_tmp, argumenty->file_out )) != FINE ) return status; 
 
 	#ifdef DEBUG
-		message( "#Wychodzę z modułu cellular_automaton.\n", GREEN );
+		message( "\n#Wychodzę z modułu cellular_automaton.\n", GREEN );
 	#endif
 
 	return FINE;
