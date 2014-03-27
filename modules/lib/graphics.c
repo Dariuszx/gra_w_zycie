@@ -20,6 +20,18 @@ void message( char *tekst, COLOR kolor ) {
 	printf( "%s%s\x1b[0m", color_type, tekst );
 }
 
+/* Sklaluję siatkę do rozmiarów okna */
+void set_graduation( int sx, int sy, int mx, int my ) { /* screen_x, screen_y, mesh_x, mesh_y */
+	
+	double graduation = (double)sx/sy;
+	int max_screen = sx >= sy ? sx : sy; /* znajduję największą krawędź */
+	int max_mesh = mx >= my ? mx : my;
+
+	int dx;
+
+}
+
+
 error set_graphics_settings( struct graphics* screen_settings, struct mesh* siatka, struct args* argumenty ) {
     
 	int max_res_mesh, min_res_screen; /* dobieram maksymalne rozmiary krawędzi */

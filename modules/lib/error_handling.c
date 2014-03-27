@@ -35,6 +35,7 @@ int error_handling( error error_code ) {
 		case MALLOC_ERROR:
 		case FOPEN_ERROR:
 		case FORMAT_ERROR:
+		case ARG_ERROR:
 			return 1;
 			break;
 		case FINE:
