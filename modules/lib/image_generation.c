@@ -19,7 +19,9 @@ error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int
 
 	static unsigned char color[3];
 	int xmc = s->mesh_on_screen_x;
-    int ymc = s->mesh_on_screen_y;
+ 	int ymc = s->mesh_on_screen_y;
+	
+	int color_change = 0;
 	
 	sprintf( image_name, "%s/img%d.ppm", folder, count );
 
@@ -32,27 +34,28 @@ error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int
 			 
 			if( x >= xmc && x <= (s->x_resolution - xmc) && y >= ymc && y <= ( s->y_resolution - ymc ) ) {
 				
-				/* krawędzie komórek */	
+				/* Krawędzie komórek */	
 				if( (x - xmc)%(s->cell_size+1) == 0 || (y - ymc)%(s->cell_size+1) == 0 ) {
-                    color[0]= 66; /* red */
-                    color[1]= 66; /* green */
-                    color[2]= 66; /* blue */
+              		color[0]= 66; /* red */
+                 	color[1]= 66; /* green */
+                   	color[2]= 66; /* blue */
 				} else {
 					ratio_x = (x - xmc) / (s->cell_size+1);
-                	ratio_y = (y - ymc) / (s->cell_size+1); 
+               		ratio_y = (y - ymc) / (s->cell_size+1); 
 					
+					/* Komórka żywa */
 					if( siatka->siatka[ratio_x][ratio_y] == 1 ) {
 						color[0]= 49; 
             			color[1]= 101; 
             			color[2]= 148; 
-					} else {
+					} else { /* martwa */
 			         	color[0]= 204; 
-                        color[1]= 204; 
-                        color[2]= 204; 
+                      	color[1]= 204; 
+                     	color[2]= 204; 
 					}
-					
 				}
-			} else {  	
+			} else { /* obszar poza siatką */
+				
           		color[0]= 0; /* red */
            		color[1]= 0; /* green */
           		color[2]= 0; /* blue */

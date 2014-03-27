@@ -5,10 +5,10 @@
 
 	#define K_DEFAULT 10
 	#define N_DEFAULT 100
-	#define FILE_IN_DEFAULT "a"
+	#define FILE_IN_DEFAULT "examples/glider_gun"
 	#define FILE_OUT_DEFAULT "mesh"
 	#define IMAGE_NAME_DEFAULT "obrazy"
-	#define RULES_DEFAULT "zasady"
+	#define RULES_DEFAULT "examples/zasady"
 
 	struct args {
 		char *file_in;
