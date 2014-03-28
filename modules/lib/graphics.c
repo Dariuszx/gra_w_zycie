@@ -20,22 +20,18 @@ void message( char *tekst, COLOR kolor ) {
 	printf( "%s%s\x1b[0m", color_type, tekst );
 }
 
-/* Sklaluję siatkę do rozmiarów okna */
-void set_graduation( int sx, int sy, int mx, int my ) { /* screen_x, screen_y, mesh_x, mesh_y */
-	
-	double graduation = (double)sx/sy;
-	int max_screen = sx >= sy ? sx : sy; /* znajduję największą krawędź */
-	int max_mesh = mx >= my ? mx : my;
+/* Wybieram najoptymalniejszy rozmiar pojedyńczej komórki */
+int set_graduation( int sx, int sy, int mx, int my ) { /* screen_x, screen_y, mesh_x, mesh_y */
 
-	int dx;
+	int grad_x = sx / mx;
+	int grad_y = sy / my;
 
+	return grad_x <= grad_y ? grad_x : grad_y;	
 }
 
 
-error set_graphics_settings( struct graphics* screen_settings, struct mesh* siatka, struct args* argumenty ) {
+error set_graphics_settings( struct graphics* ss, struct mesh* siatka, struct args* argumenty ) {
     
-	int max_res_mesh, min_res_screen; /* dobieram maksymalne rozmiary krawędzi */
-
     int* width;
     int* height;
 
@@ -43,29 +39,30 @@ error set_graphics_settings( struct graphics* screen_settings, struct mesh* siat
 		message( "\n#Wchodzę do modułu graphics.\n", GREEN );
 	#endif
 
-	screen_settings->x_resolution = argumenty->x_resolution;
-	screen_settings->y_resolution = argumenty->y_resolution;
+	ss->x_resolution = argumenty->x_resolution;
+	ss->y_resolution = argumenty->y_resolution;
 
-	width = &screen_settings->x_resolution;
-  	height = &screen_settings->y_resolution;
+	width = &ss->x_resolution;
+  	height = &ss->y_resolution;
 
-    max_res_mesh = siatka->x >= siatka->y ? siatka->x : siatka->y; /* zapisuję największy rozmiar */
-    min_res_screen = (*width-siatka->x) <= (*height-siatka->y) ? *width-siatka->x : *height-siatka->y;
+    ss->cell_size = set_graduation( ss->x_resolution, ss->y_resolution, siatka->x, siatka->y ); /* obliczam rozmiar komórki */
 
-    screen_settings->cell_size = min_res_screen / max_res_mesh; /* obliczam rozmiar komórki */
+	if( ss->cell_size < 1 ) {
+		message( "*Rozmiar siatki jest większy niż rozdzielczość obrazka.\n", RED );
+		return OUT_OF_RANGE;
+	}
+	ss->mesh_res_x = ss->cell_size * siatka->x;
+   	ss->mesh_res_y = ss->cell_size * siatka->y;
 
-	screen_settings->mesh_res_x = screen_settings->cell_size * siatka->x + siatka->x;
-    screen_settings->mesh_res_y = screen_settings->cell_size * siatka->y + siatka->y;
 
-
-	screen_settings->mesh_on_screen_x = (*width -  screen_settings->mesh_res_x)/2; 
-    screen_settings->mesh_on_screen_y = (*height -  screen_settings->mesh_res_y)/2; 
+	ss->mesh_on_screen_x = (*width -  ss->mesh_res_x)/2; 
+    ss->mesh_on_screen_y = (*height -  ss->mesh_res_y)/2; 
 
 	#ifdef DEBUG
 		printf( "\tRozmiary okna %s(x,y)=(%d,%d)%s.\n", COLOR_RED, *width, *height, COLOR_RESET );
-		printf( "\tRozmiary pojedyńczej komórki %s(x,x) x=%d%s.\n", COLOR_RED, screen_settings->cell_size, COLOR_RESET ); 
-		printf( "\tPozycja siatki na obrazie %s(x,y)=(%d, %d)%s.\n", COLOR_RED, screen_settings->mesh_on_screen_x, screen_settings->mesh_on_screen_y, COLOR_RESET );
-		printf( "\tRozmiar siatki na obrazie %s(x,y)=(%d, %d)%s.\n", COLOR_RED, screen_settings->mesh_res_x, screen_settings->mesh_res_y, COLOR_RESET );
+		printf( "\tRozmiary pojedyńczej komórki %s(x,x) x=%d%s.\n", COLOR_RED, ss->cell_size, COLOR_RESET ); 
+		printf( "\tPozycja siatki na obrazie %s(x,y)=(%d, %d)%s.\n", COLOR_RED, ss->mesh_on_screen_x, ss->mesh_on_screen_y, COLOR_RESET );
+		printf( "\tRozmiar siatki na obrazie %s(x,y)=(%d, %d)%s.\n", COLOR_RED, ss->mesh_res_x, ss->mesh_res_y, COLOR_RESET );
 		
 		message( "#Wychodzę z modułu graphics.\n", GREEN );
 	#endif

@@ -26,5 +26,5 @@
 
 	error set_graphics_settings( struct graphics*, struct mesh*, struct args* );
 	void message( char*, COLOR );
-	
+
 #endif
