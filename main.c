@@ -13,7 +13,7 @@ int main( int argc, char **argv ) {
 
 	bool wczytaj_modul = true; /* ustawiam zmienną na true, zezwalając na wywoływanie modułów */
 	int modul_id = 0; /* rozpoczynam łądowanie modułów od identyfikatora modułu 0, dzięki numerowaniu modułów mogę łatwo określić kolejność wywoływania */
-	error error_code = FINE;
+	error error_code = FINE; /* zmienna przechowująca kod błędu zwrócony przez dany moduł */
    
    	struct graphics screen_settings; /* ustawienia graficzne */ 
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
