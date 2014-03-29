@@ -2,6 +2,7 @@ CC =
 CFLAGS = -ansi -pedantic
 HEADERS = ../modules/headers
 LIBS = ../modules/lib
+BIBLIOTEKI = `pkg-config --cflags --libs gtk+-2.0`
 OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o 
 
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
@@ -57,7 +58,7 @@ image_generation.o: $(LIBS)/image_generation.c
 
 graphics.o: $(LIBS)/graphics.c
 	@echo "Kompiluję moduł $@"
-	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
+	$(CC) -c $(CFLAGS) -I$(HEADERS) $(BIBLIOTEKI) $^
 
 .PHONY: clean
 
