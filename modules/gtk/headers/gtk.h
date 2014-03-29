@@ -3,11 +3,18 @@
 	
 	#include <gtk/gtk.h>
 
+	typedef enum { QUIT } BUTTON_GTK;
+
 	struct graphics_gtk {
 		GtkWidget* okno;
 	};
 
-	void stworz_okno( struct graphics_gtk*, int*, char*** );
-	void wyswietl_okno( GtkWidget* );
+	struct buttons_gtk {
+		GtkWidget* quit;
+	};
+
+	void stworz_okno( int*, char*** );
+	void wyswietl_okno( );
+	void dodaj_przycisk( BUTTON_GTK, char* );
 
 #endif
