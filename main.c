@@ -8,17 +8,22 @@
 #include "cellular_automaton.h"
 #include "bool.h"
 #include "graphics.h"
+#include "graphics_gtk.h"
 
 int main( int argc, char **argv ) {
 
 	bool wczytaj_modul = true; /* ustawiam zmienną na true, zezwalając na wywoływanie modułów */
 	int modul_id = 0; /* rozpoczynam łądowanie modułów od identyfikatora modułu 0, dzięki numerowaniu modułów mogę łatwo określić kolejność wywoływania */
 	error error_code = FINE; /* zmienna przechowująca kod błędu zwrócony przez dany moduł */
-   
+
+    struct graphics_gtk gui;   
    	struct graphics screen_settings; /* ustawienia graficzne */ 
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
 	struct mesh siatka; /* struktura siatki */;
 
+	stworz_okno( &gui, &argc, &argv );
+	wyswietl_okno( gui.okno );
+	
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul == true ) {
 		switch( modul_id ) { /*ustalono skok wartości co 5, tak aby można było dodawać nowe moduły w odpowiedniej kolejności */
@@ -41,5 +46,7 @@ int main( int argc, char **argv ) {
 		if ( error_handling( error_code ) ) return 1; /* krytyczny błąd, zamykam program */
 		modul_id++;  
 	}
+		
+	gtk_main();
 	return 0;
 }

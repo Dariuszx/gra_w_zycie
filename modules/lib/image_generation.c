@@ -20,9 +20,7 @@ error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int
 	static unsigned char color[3];
 	int xmc = s->mesh_on_screen_x;
  	int ymc = s->mesh_on_screen_y;
-	
-	int color_change = 0;
-	
+		
 	sprintf( image_name, "%s/img%d.ppm", folder, count );
 
 	if( ( file = fopen( image_name, "wb" )) == NULL ) return FOPEN_ERROR;
