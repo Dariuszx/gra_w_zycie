@@ -56,20 +56,30 @@ void stworz_menu( ) {
   	gtk_container_add( GTK_CONTAINER( gui.okno ), kontenery.menu_box );
 
 	menu.pasek = gtk_menu_bar_new();
-	menu.menu = gtk_menu_new();
+	
+	menu.menu_plik = gtk_menu_new();
+	menu.menu_pomoc = gtk_menu_new();
 
  	menu.plik = gtk_menu_item_new_with_mnemonic("_Plik");
 		menu.zapisz = gtk_menu_item_new_with_mnemonic("_Zapisz");
 		menu.wyjdz = gtk_image_menu_item_new_from_stock( GTK_STOCK_QUIT, NULL );
 
-   	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menu.plik ), menu.menu ); 
-		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu ), menu.zapisz );
-		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu ), menu.wyjdz );
+    menu.pomoc = gtk_menu_item_new_with_mnemonic("_Pomoc");
+        menu.oprogramie = gtk_menu_item_new_with_mnemonic("_O programie");
 
+
+   	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menu.plik ), menu.menu_plik ); 
+		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu_plik ), menu.zapisz );
+		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu_plik ), menu.wyjdz );
+
+	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menu.pomoc ), menu.menu_pomoc );
+  		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu_pomoc ), menu.oprogramie );
 	
 	gtk_menu_shell_append( GTK_MENU_SHELL( menu.pasek ), menu.plik );
-    gtk_box_pack_start( GTK_BOX( kontenery.menu_box ), menu.pasek, FALSE, FALSE, 0 );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu.pasek ), menu.pomoc );
 
+    gtk_box_pack_start( GTK_BOX( kontenery.menu_box ), menu.pasek, FALSE, FALSE, 0 );
+	
 	g_signal_connect ( G_OBJECT( menu.wyjdz ), "activate", G_CALLBACK( gtk_main_quit ), NULL);
 
 	gtk_widget_show_all( gui.okno );

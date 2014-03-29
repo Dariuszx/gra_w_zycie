@@ -20,10 +20,16 @@
 
 	struct menu_gtk {
 		GtkWidget* pasek;
-		GtkWidget* menu;
+
+		GtkWidget* menu_plik;
+		GtkWidget* menu_pomoc;
+
 		GtkWidget* plik;
 			GtkWidget* zapisz;
 			GtkWidget* wyjdz;
+
+		GtkWidget* pomoc;
+			GtkWidget* oprogramie;
 	};
 
 	void stworz_okno( int*, char***, int, int );
