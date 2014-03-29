@@ -21,8 +21,8 @@ int main( int argc, char **argv ) {
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
 	struct mesh siatka; /* struktura siatki */;
 
-	stworz_okno( &argc, &argv );
-	dodaj_przycisk( QUIT, "Wyjście" );
+	stworz_okno( &argc, &argv, 800, 600 );
+	stworz_menu( );
 	wyswietl_okno( );
 	
 	/* W tym miejscu wczytuję kolejno moduły */
