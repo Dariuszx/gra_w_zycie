@@ -21,7 +21,7 @@ int main( int argc, char **argv ) {
 
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul == true ) {
-		switch( modul_id ) { /* ustalono skok wartości co 5, tak aby można było dodawać nowe moduły w odpowiedniej kolejności */
+		switch( modul_id ) { /*ustalono skok wartości co 5, tak aby można było dodawać nowe moduły w odpowiedniej kolejności */
 			case 0:
 				error_code = arg_handling( &argumenty, argc, argv ); /* ładuję moduł arg_handling */ 	
 				break;
