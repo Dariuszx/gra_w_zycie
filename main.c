@@ -8,7 +8,7 @@
 #include "cellular_automaton.h"
 #include "bool.h"
 #include "graphics.h"
-#include "graphics_gtk.h"
+#include "gtk.h"
 
 int main( int argc, char **argv ) {
 

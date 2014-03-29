@@ -1,6 +1,6 @@
 #include <gtk/gtk.h>
 #include "error_handling.h"
-#include "graphics_gtk.h"
+#include "gtk.h"
 
 void stworz_okno( struct graphics_gtk* s, int *argc, char ***argv ) {
 	

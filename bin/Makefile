@@ -2,8 +2,11 @@ CC =
 CFLAGS = -ansi -pedantic
 HEADERS = ../modules/headers
 LIB_DIR = ../modules/lib
+GTK_SRC = ../modules/gtk/src
+GTK_HEADERS = ../modules/gtk/headers
+HEADER_PATH = -I$(HEADERS) -I$(GTK_HEADERS)
 GTK = `pkg-config --cflags --libs gtk+-2.0`
-OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o graphics_gtk.o
+OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o gtk.o
 
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
 data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o: $(HEADERS)/mesh.h
@@ -11,10 +14,11 @@ cellular_automaton.o : $(HEADERS)/rules.h
 main.o : $(HEADERS)/bool.h
 arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o: $(HEADERS)/error_handling.h
 main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o : $(HEADERS)/graphics.h
-main.o graphics.o : $(HEADERS)/graphics_gtk.h
+main.o gtk.o : $(GTK_HEADERS)/gtk.h
+
 
 debug : CFLAGS += -Wall -DDEBUG
-debug : CC += @cc
+debug : CC += cc
 
 debug: $(OBJECTS)
 	@echo "Łącze moduły *.o"
@@ -27,7 +31,8 @@ gra_w_zycie: $(OBJECTS)
 
 main.o: ../main.c
 	@echo "Kompiluję moduł $@"
-	$(CC) -c $(CFLAGS) -I$(HEADERS) $(GTK) $^
+	$(CC) -c $(CFLAGS) $(HEADER_PATH) $(GTK) $^
+
 mesh.o: $(LIB_DIR)/mesh.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
@@ -57,12 +62,18 @@ image_generation.o: $(LIB_DIR)/image_generation.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
 
-graphics.o: $(LIB_DIR)/graphics.c $(LIB_DIR)/graphics_gtk.c
+graphics.o: $(LIB_DIR)/graphics.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $(GTK) $^
+
+gtk.o: $(GTK_SRC)/gtk.c
+	@echo "Kompiluję moduł $@"
+	$(CC) -c $(CFLAGS) $(HEADER_PATH) $(GTK) $^
+
 
 .PHONY: clean
 
 clean:
 	rm *.o
 	rm ../modules/headers/*.gch
+	rm ../modules/gtk/headers/*.gch
