@@ -18,6 +18,14 @@
 		GtkWidget* menu_box;
 	};
 
+	struct menu_gtk {
+		GtkWidget* pasek;
+		GtkWidget* menu;
+		GtkWidget* plik;
+			GtkWidget* zapisz;
+			GtkWidget* wyjdz;
+	};
+
 	void stworz_okno( int*, char***, int, int );
 	void wyswietl_okno( );
 	void dodaj_przycisk( BUTTON_GTK, char* );

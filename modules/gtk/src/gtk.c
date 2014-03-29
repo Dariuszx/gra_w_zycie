@@ -5,6 +5,7 @@
 struct graphics_gtk gui;
 struct buttons_gtk przyciski;
 struct boxes_gtk kontenery;
+struct menu_gtk menu;
 
 static gboolean zamkniecie_okna( GtkWidget *okno, GdkEvent *event, gpointer data ) {
     return FALSE;
@@ -27,7 +28,7 @@ void stworz_okno( int *argc, char ***argv, int width, int height ) {
 	gtk_window_set_position( GTK_WINDOW( okno ), GTK_WIN_POS_CENTER );
 	g_signal_connect( okno, "delete-event", G_CALLBACK (zamkniecie_okna), NULL);
 	g_signal_connect( okno, "destroy", G_CALLBACK (destroy), NULL);
-	gtk_container_set_border_width (GTK_CONTAINER ( okno ), 20);
+	gtk_container_set_border_width (GTK_CONTAINER ( okno ), 0);
 }
 
 
@@ -51,14 +52,27 @@ void dodaj_przycisk( BUTTON_GTK TYP, char* title ) {
 
 void stworz_menu( ) {
 
-    kontenery.menu_box = gtk_hbox_new( FALSE, 10 );
-    dodaj_przycisk( START, "Start" );
-    gtk_box_pack_start( GTK_BOX( kontenery.menu_box ), przyciski.start, TRUE, FALSE, 1 );
-	dodaj_przycisk( QUIT, "Wyjście" );
-	gtk_box_pack_start( GTK_BOX( kontenery.menu_box ), przyciski.quit, FALSE, FALSE, 1 );
-	gtk_container_add( GTK_CONTAINER( gui.okno ), kontenery.menu_box );	
-	gtk_widget_show( kontenery.menu_box );
+    kontenery.menu_box = gtk_vbox_new( FALSE, 0 );
+  	gtk_container_add( GTK_CONTAINER( gui.okno ), kontenery.menu_box );
 
+	menu.pasek = gtk_menu_bar_new();
+	menu.menu = gtk_menu_new();
+
+ 	menu.plik = gtk_menu_item_new_with_mnemonic("_Plik");
+		menu.zapisz = gtk_menu_item_new_with_mnemonic("_Zapisz");
+		menu.wyjdz = gtk_image_menu_item_new_from_stock( GTK_STOCK_QUIT, NULL );
+
+   	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menu.plik ), menu.menu ); 
+		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu ), menu.zapisz );
+		gtk_menu_shell_append( GTK_MENU_SHELL( menu.menu ), menu.wyjdz );
+
+	
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu.pasek ), menu.plik );
+    gtk_box_pack_start( GTK_BOX( kontenery.menu_box ), menu.pasek, FALSE, FALSE, 0 );
+
+	g_signal_connect ( G_OBJECT( menu.wyjdz ), "activate", G_CALLBACK( gtk_main_quit ), NULL);
+
+	gtk_widget_show_all( gui.okno );
 }
 
 
