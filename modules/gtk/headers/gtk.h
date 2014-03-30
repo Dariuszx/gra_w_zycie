@@ -22,11 +22,16 @@
 		GtkWidget* pasek;
 
 		GtkWidget* menu_plik;
+		GtkWidget* menu_dane;
 		GtkWidget* menu_pomoc;
 
 		GtkWidget* plik;
 			GtkWidget* zapisz;
 			GtkWidget* wyjdz;
+
+		GtkWidget* dane;
+			GtkWidget* otworz_siatke;
+			GtkWidget* otworz_zasady;
 
 		GtkWidget* pomoc;
 			GtkWidget* oprogramie;
