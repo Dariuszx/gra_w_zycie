@@ -38,6 +38,9 @@ int error_handling( error error_code ) {
 		case ARG_ERROR:
 			return 1;
 			break;
+		case GTK_FINE: /* Działa interfejs graficzny dlatego zwracając 1 nie zezwalam na ładowanie się dalszych modułów */
+			return 1;
+			break;
 		case FINE:
 			return 0;
 			break;

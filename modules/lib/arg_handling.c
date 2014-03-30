@@ -5,6 +5,7 @@
 #include "args.h"
 #include "error_handling.h"
 #include "graphics.h"
+#include "bool.h"
 
 error arg_handling( struct args* argumenty, int argc, char **argv ) {
 
@@ -22,9 +23,13 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->k = K_DEFAULT;
 	argumenty->x_resolution = X_RESOLUTION;
 	argumenty->y_resolution = Y_RESOLUTION;
+	argumenty->graphics_ui = false;
 
 	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:x:y:" ) ) != -1 ) {
 		switch( opt ) {
+			case 'g': /* Otwieram program z interfejsem graficznym */
+				argumenty->graphics_ui = true;
+				break;
 			case 'f':
 				argumenty->file_in = optarg;
 				#ifdef DEBUG

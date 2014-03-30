@@ -2,6 +2,7 @@
 	#define ARGS
 
 	#include <stdio.h>
+	#include "bool.h"
 
 	#define K_DEFAULT 10
 	#define N_DEFAULT 100
@@ -16,6 +17,7 @@
 		char *rules;
 		char *image_name;
 		char *image_folder;
+		bool graphics_ui;
 		int x_resolution;
 		int y_resolution;
 		int n; /* ilość generacji */

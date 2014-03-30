@@ -9,6 +9,7 @@
 #include "bool.h"
 #include "graphics.h"
 #include "gtk.h"
+#include "gtk_ui.h"
 
 int main( int argc, char **argv ) {
 
@@ -29,8 +30,11 @@ int main( int argc, char **argv ) {
 	while( wczytaj_modul == true ) {
 		switch( modul_id ) { /*ustalono skok wartości co 5, tak aby można było dodawać nowe moduły w odpowiedniej kolejności */
 			case 0:
-				error_code = arg_handling( &argumenty, argc, argv ); /* ładuję moduł arg_handling */ 	
+				error_code = arg_handling( &argumenty, argc, argv ); /* ładuję moduł arg_handling */
 				break;
+			case 3:
+				error_code = gtk_ui( &gui, &screen_settings, &argumenty, &siatka ); /* Moduł implementujący graficzny interfejs użytkownika */	
+				break;	
 			case 5:
 				error_code = data_loading( &siatka, argumenty.file_in ); /* ładuję moduł data_loading, czyli wczytuję dane z pliku */	
 				break;
@@ -44,7 +48,7 @@ int main( int argc, char **argv ) {
 				wczytaj_modul = false;
 				break;
 		}
-		if ( error_handling( error_code ) ) return 1; /* krytyczny błąd, zamykam program */
+		if ( error_handling( error_code ) ) return 1; /* krytyczny błąd lub zamierzone wyjście z programu, zamykam program */
 		modul_id++;  
 	}
 		

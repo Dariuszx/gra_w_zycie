@@ -37,9 +37,8 @@ void dodaj_przycisk( BUTTON_GTK TYP, char* title ) {
 	switch( TYP ) {
 		case QUIT:
 			przyciski.quit = gtk_button_new_with_label( title  );
-			gtk_widget_set_size_request( przyciski.quit, 100, 100 );
 			g_signal_connect_swapped( przyciski.quit, "clicked", G_CALLBACK(gtk_widget_destroy), gui.okno);
-			gtk_widget_show( przyciski.quit );
+		
 		break;
 		case START:
 			przyciski.start = gtk_button_new_with_label( title  );
