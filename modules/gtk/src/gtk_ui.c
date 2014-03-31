@@ -4,8 +4,16 @@
 #include "graphics.h"
 #include "gtk.h"
 
-error gtk_ui( struct graphics_gtk *gui, struct graphics* settings, struct args* argumenty, struct mesh* siatka ) {
+error gtk_ui( struct graphics* settings, struct args* argumenty, struct mesh* siatka, int* argc, char*** argv ) {
 
+	struct graphics_gtk gui;
+
+	stworz_okno( argc, argv, 800, 600 );
+    stworz_menu( );
+    wyswietl_okno( );
+
+
+	gtk_main();
 
 	return GTK_FINE;
 }

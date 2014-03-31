@@ -8,7 +8,6 @@
 #include "cellular_automaton.h"
 #include "bool.h"
 #include "graphics.h"
-#include "gtk.h"
 #include "gtk_ui.h"
 
 int main( int argc, char **argv ) {
@@ -17,14 +16,9 @@ int main( int argc, char **argv ) {
 	int modul_id = 0; /* rozpoczynam łądowanie modułów od identyfikatora modułu 0, dzięki numerowaniu modułów mogę łatwo określić kolejność wywoływania */
 	error error_code = FINE; /* zmienna przechowująca kod błędu zwrócony przez dany moduł */
 
-    struct graphics_gtk gui;   
    	struct graphics screen_settings; /* ustawienia graficzne */ 
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
 	struct mesh siatka; /* struktura siatki */;
-
-	stworz_okno( &argc, &argv, 800, 600 );
-	stworz_menu( );
-	wyswietl_okno( );
 	
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul == true ) {
@@ -33,7 +27,7 @@ int main( int argc, char **argv ) {
 				error_code = arg_handling( &argumenty, argc, argv ); /* ładuję moduł arg_handling */
 				break;
 			case 3:
-				error_code = gtk_ui( &gui, &screen_settings, &argumenty, &siatka ); /* Moduł implementujący graficzny interfejs użytkownika */	
+				error_code = gtk_ui( &screen_settings, &argumenty, &siatka, &argc, &argv ); /* Moduł implementujący graficzny interfejs użytkownika */	
 				break;	
 			case 5:
 				error_code = data_loading( &siatka, argumenty.file_in ); /* ładuję moduł data_loading, czyli wczytuję dane z pliku */	
@@ -52,6 +46,5 @@ int main( int argc, char **argv ) {
 		modul_id++;  
 	}
 		
-	gtk_main();
 	return 0;
 }

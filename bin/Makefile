@@ -6,15 +6,15 @@ GTK_SRC = ../modules/gtk/src
 GTK_HEADERS = ../modules/gtk/headers
 HEADER_PATH = -I$(HEADERS) -I$(GTK_HEADERS)
 GTK = `pkg-config --cflags --libs gtk+-2.0`
-OBJECTS = gtk_ui.o main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o gtk.o
+OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o gtk.o gtk_ui.o
 
-main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
-data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o: $(HEADERS)/mesh.h
+main.o arg_handling.o cellular_automaton.o gtk_ui.o: $(HEADERS)/args.h
+data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o gtk_ui.o : $(HEADERS)/mesh.h
 cellular_automaton.o : $(HEADERS)/rules.h
 main.o arg_handling.o : $(HEADERS)/bool.h
 arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o gtk_ui.o : $(HEADERS)/error_handling.h
-main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o : $(HEADERS)/graphics.h
-main.o gtk.o : $(GTK_HEADERS)/gtk.h
+main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o gtk_ui.o : $(HEADERS)/graphics.h
+gtk.o gtk_ui.o : $(GTK_HEADERS)/gtk.h
 main.o: $(GTK_HEADERS)/gtk_ui.h
 
 

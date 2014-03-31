@@ -25,7 +25,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	argumenty->y_resolution = Y_RESOLUTION;
 	argumenty->graphics_ui = false;
 
-	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:x:y:" ) ) != -1 ) {
+	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:x:y:g:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'g': /* Otwieram program z interfejsem graficznym */
 				argumenty->graphics_ui = true;
@@ -93,7 +93,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	if (argumenty->file_in == NULL ) argumenty->file_in = FILE_IN_DEFAULT;
 	if (argumenty->file_out == NULL ) argumenty->file_out = FILE_OUT_DEFAULT;
 	if (argumenty->rules == NULL ) argumenty->rules = RULES_DEFAULT;
-    if (argumenty->image_name == NULL ) {
+    if (argumenty->image_name == NULL && argumenty->graphics_ui != true ) {
 		printf( "*[-i]Nie podano nazwy katalogu w którym mają być zapisane obrazki.\n" );
         return ARG_ERROR;
     }
