@@ -8,7 +8,7 @@
 #include "cellular_automaton.h"
 #include "bool.h"
 #include "graphics.h"
-#include "gtk_ui.h"
+#include "graphic_interface.h"
 
 int main( int argc, char **argv ) {
 
@@ -27,7 +27,7 @@ int main( int argc, char **argv ) {
 				error_code = arg_handling( &argumenty, argc, argv ); /* ładuję moduł arg_handling */
 				break;
 			case 3:
-				error_code = gtk_ui( &screen_settings, &argumenty, &siatka, &argc, &argv ); /* Moduł implementujący graficzny interfejs użytkownika */	
+				error_code = graphic_interface( &screen_settings, &argumenty, &siatka, &argc, &argv ); /* Moduł implementujący graficzny interfejs użytkownika */	
 				break;	
 			case 5:
 				error_code = data_loading( &siatka, argumenty.file_in ); /* ładuję moduł data_loading, czyli wczytuję dane z pliku */	

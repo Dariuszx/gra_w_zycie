@@ -6,7 +6,7 @@ GTK_SRC = ../modules/gtk/src
 GTK_HEADERS = ../modules/gtk/headers
 HEADER_PATH = -I$(HEADERS) -I$(GTK_HEADERS)
 GTK = `pkg-config --cflags --libs gtk+-2.0`
-OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o gtk.o gtk_ui.o
+OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o gtk.o graphic_interface.o
 
 main.o arg_handling.o cellular_automaton.o gtk_ui.o: $(HEADERS)/args.h
 data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o gtk_ui.o : $(HEADERS)/mesh.h
@@ -15,7 +15,7 @@ main.o arg_handling.o : $(HEADERS)/bool.h
 arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o gtk_ui.o : $(HEADERS)/error_handling.h
 main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o gtk_ui.o : $(HEADERS)/graphics.h
 gtk.o gtk_ui.o : $(GTK_HEADERS)/gtk.h
-main.o: $(GTK_HEADERS)/gtk_ui.h
+main.o: $(GTK_HEADERS)/graphic_interface.h
 
 
 debug : CFLAGS += -Wall -DDEBUG
@@ -71,7 +71,7 @@ gtk.o: $(GTK_SRC)/gtk.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) $(HEADER_PATH) $(GTK) $^
 
-gtk_ui.o: $(GTK_SRC)/gtk_ui.c
+graphic_interface.o: $(GTK_SRC)/graphic_interface.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) $(HEADER_PATH) $(GTK) $^
 
