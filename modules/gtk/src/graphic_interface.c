@@ -6,13 +6,21 @@
 
 error graphic_interface( struct graphics* settings, struct args* argumenty, struct mesh* siatka, int* argc, char*** argv ) {
 
-	struct graphics_gtk gui;
+	struct gtk_graphics gui;
 
-	stworz_okno( argc, argv, 800, 600 );
-	stworz_menu( );
-	wyswietl_okno( );
+	#ifdef DEBUG
+		message( "#Wchodzę do modułu graphic_interface.\n", GREEN );
+	#endif
 
+	gtk_make_window( argc, argv, 800, 600 );	
+
+	gtk_show_window( );
 	gtk_main();
+
+	#ifdef DEBUG
+  		message( "#Wychodzę z modułu graphic_interface.\n", GREEN );
+	#endif
+
 
 	return GTK_FINE;
 }

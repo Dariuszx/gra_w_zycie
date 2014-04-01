@@ -5,20 +5,20 @@
 
 	typedef enum { START, QUIT } BUTTON_GTK;
 
-	struct graphics_gtk {
+	struct gtk_graphics {
 		GtkWidget* okno;
 	};
 
-	struct buttons_gtk {
+	struct gtk_buttons {
 		GtkWidget* quit;
 		GtkWidget* start;
 	};
 
-	struct boxes_gtk {
+	struct gtk_boxes {
 		GtkWidget* menu_box;
 	};
 
-	struct menu_gtk {
+	struct gtk_menu {
 		GtkWidget* pasek;
 
 		GtkWidget* menu_plik;
@@ -37,8 +37,9 @@
 			GtkWidget* oprogramie;
 	};
 
-	void stworz_okno( int*, char***, int, int );
-	void wyswietl_okno( );
+	void gtk_menu( struct gtk_boxes*, struct gtk_menu*, struct gtk_graphics* );
+	void gtk_make_window( int*, char***, int, int );
+	void gtk_show_window( );
 	void dodaj_przycisk( BUTTON_GTK, char* );
 	void stworz_menu( );
 
