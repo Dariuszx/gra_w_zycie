@@ -6,7 +6,7 @@
 void gtk_menu( struct gtk_boxes* kontenery, struct gtk_menu* menu, struct gtk_graphics* gui ) {
 
     kontenery->menu_box = gtk_vbox_new( FALSE, 0 ); /* Tworzę kontener */
-    gtk_container_add( GTK_CONTAINER( gui->okno ), kontenery->menu_box ); /* Dodaję kontener do menu głównego */
+    gtk_container_add( GTK_CONTAINER( kontenery->main_box ), kontenery->menu_box ); /* Dodaję kontener do menu głównego */
 
     menu->pasek = gtk_menu_bar_new(); /* Tworzę pasek menu */
 

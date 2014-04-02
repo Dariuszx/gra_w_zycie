@@ -16,6 +16,7 @@
 	struct gtk_buttons przyciski;
 	struct gtk_boxes kontenery;
 	struct gtk_menu menu;
+	struct gtk_text tekst;
 
 	typedef enum { START, QUIT } BUTTON_GTK;
 
@@ -24,12 +25,16 @@
 	};
 
 	struct gtk_buttons {
+		GtkWidget* zapisz;
+		GtkWidget* num2;
 		GtkWidget* quit;
-		GtkWidget* start;
 	};
 
 	struct gtk_boxes {
-		GtkWidget* menu_box;
+		GtkWidget* main_box; /* Kontener główny */
+		GtkWidget* menu_box; /* Pasek menu */
+		GtkWidget* header_box;
+		GtkWidget* table_properties;
 	};
 
 	struct gtk_menu {
@@ -51,6 +56,11 @@
 			GtkWidget* oprogramie;
 	};
 
+	struct gtk_text {
+		GtkWidget* naglowek;
+	};
+
+	void gtk_make_header( );
 	void gtk_import_data( struct graphics*, struct args*, struct mesh*, struct rules* );
 	void gtk_menu( struct gtk_boxes*, struct gtk_menu*, struct gtk_graphics* );
 	void gtk_make_window( int*, char***, int, int );

@@ -21,6 +21,7 @@ error graphic_interface( struct graphics* settings, struct args* argumenty, stru
 
 	/* Tworzę okno */
 	gtk_make_window( argc, argv, 800, 600 );	
+	gtk_make_header( );
 
 	/* Wyświetlam okno */
 	gtk_show_window( );
