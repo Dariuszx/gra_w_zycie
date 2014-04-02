@@ -5,10 +5,17 @@
 	#include "graphics.h"
 	#include "args.h"
 	#include "mesh.h"
+	#include "rules.h"
 
 	struct graphics* gtk_graphic_settings;
 	struct args* gtk_args;
 	struct mesh* gtk_siatka;
+	struct rules* gtk_rules;
+
+	struct gtk_graphics gui;
+	struct gtk_buttons przyciski;
+	struct gtk_boxes kontenery;
+	struct gtk_menu menu;
 
 	typedef enum { START, QUIT } BUTTON_GTK;
 
@@ -44,7 +51,7 @@
 			GtkWidget* oprogramie;
 	};
 
-	void gtk_import_data( struct graphics*, struct args*, struct mesh* );
+	void gtk_import_data( struct graphics*, struct args*, struct mesh*, struct rules* );
 	void gtk_menu( struct gtk_boxes*, struct gtk_menu*, struct gtk_graphics* );
 	void gtk_make_window( int*, char***, int, int );
 	void gtk_show_window( );

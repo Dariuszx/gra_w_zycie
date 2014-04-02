@@ -48,7 +48,7 @@ void gtk_menu( struct gtk_boxes* kontenery, struct gtk_menu* menu, struct gtk_gr
 
 	/* Definiuję akcje po uruchomieniu konkretnej opcji */
   	g_signal_connect( G_OBJECT( menu->otworz_siatke ), "activate", G_CALLBACK( otworz_siatke ), NULL );
-   	g_signal_connect( G_OBJECT( menu->otworz_zasady ), "activate", G_CALLBACK( otworz_siatke ), NULL );
+   	g_signal_connect( G_OBJECT( menu->otworz_zasady ), "activate", G_CALLBACK( otworz_zasady ), NULL );
  	g_signal_connect( G_OBJECT( menu->wyjdz ), "activate", G_CALLBACK( gtk_main_quit ), NULL);
 
 	/* Wyświetlam menu w oknie */

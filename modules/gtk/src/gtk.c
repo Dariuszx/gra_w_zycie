@@ -2,11 +2,14 @@
 #include "gtk.h"
 #include "gtk_actions.h"
 #include "bool.h"
+#include "rules.h"
 
+/*
 struct gtk_graphics gui;
 struct gtk_buttons przyciski;
 struct gtk_boxes kontenery;
 struct gtk_menu menu;
+*/
 
 void gtk_make_window( int *argc, char ***argv, int width, int height ) {
 	
@@ -27,10 +30,11 @@ void gtk_make_window( int *argc, char ***argv, int width, int height ) {
 
 }
 
-void gtk_import_data( struct graphics* settings, struct args* argumenty, struct mesh* siatka ) {
+void gtk_import_data( struct graphics* settings, struct args* argumenty, struct mesh* siatka, struct rules* zasady ) {
 	gtk_graphic_settings = settings;
 	gtk_args = argumenty;
 	gtk_siatka = siatka;
+	gtk_rules = zasady;
 }
 
 void gtk_show_window( ) { /* Wyświetlam okno */	

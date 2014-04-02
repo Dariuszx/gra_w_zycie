@@ -8,6 +8,7 @@
 error graphic_interface( struct graphics* settings, struct args* argumenty, struct mesh* siatka, int* argc, char*** argv ) {
 
 	struct gtk_graphics gui;
+	struct rules zasady;
 
 	if( argumenty->graphics_ui != true ) return FINE; /* Uruchamiam program w tybie tekstowym */
 
@@ -15,12 +16,16 @@ error graphic_interface( struct graphics* settings, struct args* argumenty, stru
 		message( "#Wchodzę do modułu graphic_interface.\n", GREEN );
 	#endif
 
-	gtk_import_data( settings, argumenty, siatka );
+	/* Przekazuje struktury do modułu gtk_ */
+	gtk_import_data( settings, argumenty, siatka, &zasady );
 
+	/* Tworzę okno */
 	gtk_make_window( argc, argv, 800, 600 );	
 
+	/* Wyświetlam okno */
 	gtk_show_window( );
-	gtk_main();
+
+	gtk_main(); /* Pętla główna */
 
 	#ifdef DEBUG
   		message( "#Wychodzę z modułu graphic_interface.\n", GREEN );

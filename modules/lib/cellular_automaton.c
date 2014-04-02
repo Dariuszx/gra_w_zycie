@@ -26,7 +26,7 @@ error cellular_automaton( struct mesh* siatka, struct args* argumenty, struct gr
 	#endif
 
 	/* Wybieram zasady przejścia */
-	if( ( status = select_rules( argumenty, &zasady )) != FINE ) return status;  
+	if( ( status = select_rules( argumenty->rules, &zasady )) != FINE ) return status;  
 
 	/* kopiuję siatkę */
 	if( (status = copy_mesh( siatka, &siatka_tmp )) != FINE ) return status;
