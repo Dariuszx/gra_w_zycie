@@ -18,6 +18,7 @@ main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_sa
 gtk.o gtk_ui.o gtk_actions.o gtk_menu.o: $(GTK_HEADERS)/gtk.h
 main.o: $(GTK_HEADERS)/graphic_interface.h
 gtk_menu.o gtk_actions.o : $(GTK_HEADERS)/gtk_actions.h
+gtk_actions.o : $(HEADERS)/data_loading.h
 
 debug : CFLAGS += -Wall -DDEBUG
 debug : CC += cc

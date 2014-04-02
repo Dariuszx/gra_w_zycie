@@ -27,6 +27,12 @@ void gtk_make_window( int *argc, char ***argv, int width, int height ) {
 
 }
 
+void gtk_import_data( struct graphics* settings, struct args* argumenty, struct mesh* siatka ) {
+	gtk_graphic_settings = settings;
+	gtk_args = argumenty;
+	gtk_siatka = siatka;
+}
+
 void gtk_show_window( ) { /* Wyświetlam okno */	
 	gtk_widget_show( gui.okno );
 }

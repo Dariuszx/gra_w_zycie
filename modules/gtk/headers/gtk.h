@@ -2,6 +2,13 @@
 	#define GRAPHICS_GTK
 	
 	#include <gtk/gtk.h>
+	#include "graphics.h"
+	#include "args.h"
+	#include "mesh.h"
+
+	struct graphics* gtk_graphic_settings;
+	struct args* gtk_args;
+	struct mesh* gtk_siatka;
 
 	typedef enum { START, QUIT } BUTTON_GTK;
 
@@ -37,6 +44,7 @@
 			GtkWidget* oprogramie;
 	};
 
+	void gtk_import_data( struct graphics*, struct args*, struct mesh* );
 	void gtk_menu( struct gtk_boxes*, struct gtk_menu*, struct gtk_graphics* );
 	void gtk_make_window( int*, char***, int, int );
 	void gtk_show_window( );
