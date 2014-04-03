@@ -40,7 +40,7 @@ int main( int argc, char **argv ) {
 				break;
 		}
 		if ( error_handling( error_code ) ) {
-			free_mesh( &siatka );
+			if( siatka.siatka != NULL ) free_mesh( &siatka );
 			return 1; /* krytyczny błąd, zamykam program */
 		}
 		modul_id++;  
