@@ -14,10 +14,10 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 		message( "\n#Wchodzę do modułu arg_handling\n", GREEN ); 
 	#endif
 
-	argumenty->file_in = NULL;
-	argumenty->file_out = NULL;
+	argumenty->file_in = FILE_IN_DEFAULT;
+	argumenty->file_out = FILE_OUT_DEFAULT;
 	argumenty->image_name = NULL;
-	argumenty->rules = NULL;
+	argumenty->rules = RULES_DEFAULT;
 	argumenty->n = N_DEFAULT;
 	argumenty->k = K_DEFAULT;
 	argumenty->x_resolution = X_RESOLUTION;
@@ -35,7 +35,8 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				#ifdef DEBUG
 					printf( "\tPodana liczba generacji to: %s.\n", optarg );
 				#endif
-				if ( (argumenty->n = atoi( optarg )) <= 0 ) {
+				argumenty->n = atoi( optarg );
+				if ( (argumenty->n <= 0) || argumenty->n > MAX_N ) {
 					argumenty->n = N_DEFAULT; /* jeżeli podano nieprawidłową liczbe przypisuję wartość domyślną */
 				}
 				break;
@@ -43,7 +44,8 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				#ifdef DEBUG
 					printf( "\tPodana liczba generowanych obrazków to: %s.\n", optarg );
 				#endif
-				if ( (argumenty->k = atoi( optarg )) <= 0 ) {
+				argumenty->k = atoi( optarg );
+				if ( (argumenty->k <= 0) || argumenty->n > MAX_K ) {
 					argumenty->k = K_DEFAULT; /* jeżeli nie podano prawidłowej liczby przypisuję wartość domyślną */
 				}
 				break;
@@ -61,8 +63,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				break;
 		   	case 'i':
                	argumenty->image_name = optarg;
-				argumenty->image_folder = malloc( 128 * sizeof * argumenty->image_folder );
-               	#ifdef DEBUG
+				#ifdef DEBUG
                	    printf( "\tPodana nazwa folderu do przechowywania obrazów: %s.\n", argumenty->image_name );
                	#endif
                	break;
@@ -70,7 +71,8 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
               	#ifdef DEBUG
                    	printf( "\tPodana rozdzielczość obrazka x to: %s.\n", optarg );
             	#endif
-         		if ( (argumenty->x_resolution = atoi( optarg )) <= 0 ) {
+				argumenty->x_resolution = atoi( optarg );
+         		if ( (argumenty->x_resolution <= 0) || argumenty->x_resolution > MAX_X_RES ) {
            			argumenty->x_resolution = X_RESOLUTION; /* jeżeli nie podano prawidłowej liczby przypisuję wartość domyślną */
                 }
                 break;
@@ -78,22 +80,18 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
                	#ifdef DEBUG
                    	printf( "\tPodana rozdzielczość obrazka y to: %s.\n", optarg );
                	#endif
-               	if ( (argumenty->y_resolution = atoi( optarg )) <= 0 ) {
+				argumenty->y_resolution = atoi( optarg );
+               	if ( (argumenty->y_resolution <= 0) || argumenty->y_resolution > MAX_Y_RES ) {
                    	argumenty->y_resolution = Y_RESOLUTION; /* jeżeli nie podano prawidłowej liczby przypisuję wartość domyślną */
              	}
                	break;
 		}
 	}
 	
-	if (argumenty->file_in == NULL ) argumenty->file_in = FILE_IN_DEFAULT;
-	if (argumenty->file_out == NULL ) argumenty->file_out = FILE_OUT_DEFAULT;
-	if (argumenty->rules == NULL ) argumenty->rules = RULES_DEFAULT;
     if (argumenty->image_name == NULL ) {
 		printf( "*[-i]Nie podano nazwy katalogu w którym mają być zapisane obrazki.\n" );
         return ARG_ERROR;
     }
-
-
 
 	#ifdef DEBUG
 		message( "#Wychodzę z modułu arg_handling\n", GREEN );

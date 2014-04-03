@@ -1,5 +1,6 @@
 #include <sys/stat.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 #include "mesh.h"
@@ -43,6 +44,8 @@ error data_saving( struct mesh* siatka, char* file_out ) {
 				fprintf( file, "\n%d %d", x, y ); 
 		}
 	}
+
+	fclose( file );
 
 	return FINE;
 }

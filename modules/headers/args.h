@@ -3,6 +3,8 @@
 
 	#include <stdio.h>
 
+	#define MAX_N 1000
+	#define MAX_K 1000
 	#define K_DEFAULT 10
 	#define N_DEFAULT 100
 	#define FILE_IN_DEFAULT "examples/glider_gun"
@@ -15,7 +17,7 @@
 		char *file_out;
 		char *rules;
 		char *image_name;
-		char *image_folder;
+		char image_folder[128];
 		int x_resolution;
 		int y_resolution;
 		int n; /* ilość generacji */

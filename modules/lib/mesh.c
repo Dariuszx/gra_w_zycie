@@ -5,10 +5,7 @@
 error make_mesh( struct mesh* siatka, int x, int y ) {
 
 	int j;
-
-	if( siatka == NULL )
-		if( (siatka = malloc( sizeof * siatka ) ) == NULL ) return MALLOC_ERROR;
- 
+	
 	siatka->x = x;
 	siatka->y = y;	
 

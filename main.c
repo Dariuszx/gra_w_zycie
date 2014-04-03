@@ -8,6 +8,7 @@
 #include "cellular_automaton.h"
 #include "bool.h"
 #include "graphics.h"
+#include "garbage_collection.h"
 
 int main( int argc, char **argv ) {
 
@@ -38,8 +39,12 @@ int main( int argc, char **argv ) {
 				wczytaj_modul = false;
 				break;
 		}
-		if ( error_handling( error_code ) ) return 1; /* krytyczny błąd, zamykam program */
+		if ( error_handling( error_code ) ) {
+			free_mesh( &siatka );
+			return 1; /* krytyczny błąd, zamykam program */
+		}
 		modul_id++;  
 	}
+	free_mesh( &siatka );
 	return 0;
 }

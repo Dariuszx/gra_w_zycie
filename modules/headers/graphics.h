@@ -3,6 +3,8 @@
 
 	#define X_RESOLUTION 800
 	#define Y_RESOLUTION 800
+	#define MAX_X_RES 1920
+	#define MAX_Y_RES 1680
 
 	#define COLOR_GREEN "\x1b[32m"
 	#define COLOR_RED "\x1b[31m"

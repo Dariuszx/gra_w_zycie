@@ -3,6 +3,7 @@
 #include "mesh.h"
 #include "rules.h"
 #include "error_handling.h"
+#include "garbage_collection.h"
 
 /* Określam z iloma żywmi komórkami graniczy dana komórka */
 int neighborhood( struct mesh* siatka, int x, int y ) {
@@ -53,5 +54,7 @@ error formation_generation( struct mesh* siatka, struct rules* zasady ) {
 		}
 	}
 
+	free_mesh( &siatka_tmp );
+	
 	return FINE;
 }

@@ -2,6 +2,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "mesh.h"
 #include "error_handling.h"
@@ -19,9 +20,7 @@ error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int
 
 	static unsigned char color[3];
 	int xmc = s->mesh_on_screen_x;
- 	int ymc = s->mesh_on_screen_y;
-	
-	int color_change = 0;
+ 	int ymc = s->mesh_on_screen_y;	
 	
 	sprintf( image_name, "%s/img%d.ppm", folder, count );
 
@@ -64,6 +63,7 @@ error generate_image( struct mesh* siatka, struct graphics* s, char* folder, int
 		}
 	}
 
+	fclose( file );
     return FINE;
 }
 

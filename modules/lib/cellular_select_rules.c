@@ -59,6 +59,8 @@ error select_rules( struct args* argumenty, struct rules* zasady ) {
 		if( zasady->dead_cell != NULL && zasady->living_cell != NULL ) break;
 	}
 
+	fclose( file_rules );
+
 	#ifdef DEBUG
 		printf( "\t\tIlość sąsiadów żywych dla komórki żywej, aby komórka pozostała żywa: " );
 		for( i=0; i<zasady->living_elements; i++ )
