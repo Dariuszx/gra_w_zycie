@@ -38,7 +38,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				argumenty->n = atoi( optarg );
 				
 				#ifdef DEBUG
-                	printf( "\tPodano liczbę generacji -n: %s.\n", argumenty->n );
+                	printf( "\tPodano liczbę generacji -n: %d.\n", argumenty->n );
                	#endif
 
 				if ( (argumenty->n <= 0) || argumenty->n > MAX_N ) {
@@ -50,7 +50,7 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 				argumenty->k = atoi( optarg );
 			
 				#ifdef DEBUG
-                	printf( "\tPodano liczbę generowanych obrazków -k: %s.\n", argumenty->k );
+                	printf( "\tPodano liczbę generowanych obrazków -k: %d.\n", argumenty->k );
                	#endif
 			
 				if ( (argumenty->k <= 0) || argumenty->n > MAX_K ) {

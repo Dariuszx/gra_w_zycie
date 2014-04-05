@@ -23,7 +23,6 @@ error initialize_log( int size ) {
 void add_log( char* message, ... ) {
 
 	va_list args;
-	char* result;
 
 	if( logi.possition == (logi.size - 1) ) 
 		if( resize_array_log( ) != FINE )
@@ -59,6 +58,8 @@ error write_log( ) {
 	for( i=0; i < logi.possition; i++ ) {
 		fprintf( plik, "%s\n", logi.log[i] );
 	}
+
+	fclose( plik );
 
 	return FINE;
 }

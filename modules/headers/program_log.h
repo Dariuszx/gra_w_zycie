@@ -12,6 +12,7 @@
 		int possition;
 	};
 
+	error initialize_log( int );
 	void add_log( char*, ... );
 	error resize_array_log( );
 	error write_log( );
