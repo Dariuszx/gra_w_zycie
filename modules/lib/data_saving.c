@@ -5,6 +5,7 @@
 #include <string.h>
 #include "mesh.h"
 #include "error_handling.h"
+#include "program_log.h"
 
 #define PATH_LENGHT 64 /* Maksymalna długość ścieżki do pliku, w którym zostanie zapisana siatka komórek */
 
@@ -16,14 +17,14 @@ error data_saving( struct mesh* siatka, char* file_out ) {
 	int x, y;
 
 	if( mkdir( "data", 0777 ) != 0 && errno != EEXIST ) {
-		printf( "*Problem przy tworzeniu folderu: data" );
+		add_log( "#Problem przy tworzeniu folderu: data." );
 		return MKDIR_ERROR;
 	} 
 	
 	lenght = strlen( path ) + strlen( file_out );
 
 	if( lenght >= PATH_LENGHT ) {
-		printf( "*Długość nazwy pliku %s jest zbyt duża.\n", file_out );
+		add_log( "#Długość nazwy pliku %s jest zbyt duża.", file_out );
 		return OUT_OF_RANGE;
 	}
 
@@ -32,7 +33,7 @@ error data_saving( struct mesh* siatka, char* file_out ) {
 	}
 
 	if( ( file = fopen( path, "w" )) == NULL ) {
-		printf( "*Nie udało się otworzyć pliku do zapisu %s.\n", path );
+		add_log( "#Nie udało się otworzyć pliku do zapisu %s.", path );
 		return FOPEN_ERROR;
 	}
 

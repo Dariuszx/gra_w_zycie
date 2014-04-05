@@ -13,7 +13,7 @@ main.o : $(HEADERS)/bool.h
 arg_handling.o program_log.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o: $(HEADERS)/error_handling.h
 main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o : $(HEADERS)/graphics.h
 main.o cellular_formation_generation.o cellular_automaton.o : $(HEADERS)/garbage_collection.h
-arg_handling.o : $(HEADERS)/program_log.h
+arg_handling.o garbage_collection.o data_loading.o data_saving.o graphics.o image_generation.o cellular_automaton.o: $(HEADERS)/program_log.h
 
 debug : CFLAGS += -Wall -DDEBUG -g
 debug : CC += @cc

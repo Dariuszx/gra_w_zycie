@@ -42,12 +42,14 @@ int main( int argc, char **argv ) {
 				wczytaj_modul = false;
 				break;
 		}
-		if ( error_handling( error_code ) ) {
-			if( siatka.siatka != NULL ) free_mesh( &siatka );
-			return 1; /* krytyczny błąd, zamykam program */
-		}
+		if ( error_handling( error_code ) ) break; /* krytyczny błąd, zamykam program */
+		
 		modul_id++;  
 	}
-	free_mesh( &siatka );
+
+	write_log( );
+	free_log( &logi );
+	if( siatka.siatka != NULL ) free_mesh( &siatka );
+
 	return 0;
 }

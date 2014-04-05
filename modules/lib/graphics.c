@@ -3,6 +3,7 @@
 #include "error_handling.h"
 #include "args.h"
 #include "mesh.h"
+#include "program_log.h"
 
 void message( char *tekst, COLOR kolor ) {
 
@@ -48,7 +49,7 @@ error set_graphics_settings( struct graphics* ss, struct mesh* siatka, struct ar
     ss->cell_size = set_graduation( ss->x_resolution, ss->y_resolution, siatka->x, siatka->y ); /* obliczam rozmiar komórki */
 
 	if( ss->cell_size < 1 ) {
-		message( "*Rozmiar siatki jest większy niż rozdzielczość obrazka.\n", RED );
+		add_log( "#Rozmiar siatki jest większy niż rozdzielczość obrazka." );
 		return OUT_OF_RANGE;
 	}
 	ss->mesh_res_x = ss->cell_size * siatka->x;

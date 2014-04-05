@@ -3,6 +3,7 @@
 #include "mesh.h"
 #include "error_handling.h"
 #include "graphics.h"
+#include "program_log.h"
 
 error data_loading( struct mesh* siatka, char* file_in ) {
 
@@ -17,20 +18,20 @@ error data_loading( struct mesh* siatka, char* file_in ) {
 	#endif
 	
 	if ( (filein = fopen( file_in, "r" )) == NULL ) {
-		printf( "*Nie mogę otworzyć pliku z danymi %s.\n", file_in );
+		add_log( "#Nie mogę otworzyć pliku z danymi: %s.", file_in );
 		return FOPEN_ERROR;
 	}
 
 	/* czytam pierwszą linie pliku zawierającą rozmiar siatki (x,y) */
 	if ( fscanf( filein, "%d %d", &x, &y) != 2 ) {
-		printf( "*Błędny format danych wejściowych pliku: %s.\n", file_in );
+		add_log( "#Błędny format danych wejściowych pliku: %s.", file_in );
 		fclose( filein );
 		return FORMAT_ERROR;
 	}
 
 	/* sprawdzam czy użytkownik nie podał zbyt dużych lub nieprawidłowych rozmiarów tablicy */
 	if ( x > MAX_X || y > MAX_Y || x <= 0 || y <= 0 ) {
-		printf( "*W pliku wejściowym zdefiniowano nieakceptowalne rozmiary siatki.\n" );
+		add_log( "#W pliku wejściowym zdefiniowano nieakceptowalne rozmiary siatki." );
 		fclose( filein );
 		return OUT_OF_RANGE;
 	}

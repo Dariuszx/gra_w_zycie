@@ -7,6 +7,7 @@
 #include "mesh.h"
 #include "error_handling.h"
 #include "graphics.h"
+#include "program_log.h"
 
 #define PATH_LENGHT 128
 
@@ -77,14 +78,14 @@ error make_dir( char *folder, char *image_folder ) {
 	
 	/* Tworzę folder data */
 	if ( mkdir( "data", S_IRWXU|S_IRGRP|S_IXGRP) != 0 && errno != EEXIST ) {
-     	printf( "*Problem przy tworzeniu folderu: data" );
+     	add_log( "#Problem przy tworzeniu folderu: data." );
        	return MKDIR_ERROR;
     } 
 	errno = 0;
 
 	/* Sprawdzam czy długość nazwy folderu nie jest zbyt długa */
     if( lenght >= PATH_LENGHT ) {
-        printf( "*Długość nazwy folderu %s jest zbyt duża.\n", folder );
+        add_log( "#Długość nazwy folderu %s jest zbyt duża.", folder );
         return OUT_OF_RANGE;
     }
 
@@ -100,13 +101,13 @@ error make_dir( char *folder, char *image_folder ) {
 
 	/* Tworzę folder z obrazkami */
     if( mkdir( path, 0777 ) != 0 && errno != EEXIST ) {
-        printf( "*Problem przy tworzeniu folderu: %s.\n", path );
+        add_log( "#Problem przy tworzeniu folderu: %s.", path );
         return MKDIR_ERROR;
     }
 
 	/* Jeżeli folder istnieje zamykam program */
     if( errno == EEXIST ) {
-        printf( "*Folder %s już istnieje, proszę wybrać inną nazwę lub użyć polecenia 'make clean_data'.\n", path );
+        add_log( "#Folder %s już istnieje, proszę wybrać inną nazwę lub użyć polecenia 'make clean_data'.", path );
         return MKDIR_ERROR;
     }
 

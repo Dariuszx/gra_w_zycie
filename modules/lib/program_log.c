@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include "program_log.h"
@@ -31,9 +32,7 @@ void add_log( char* message, ... ) {
     va_start( args, message );
     	vsprintf( logi.log[ logi.possition++ ], message, args );
     va_end( args );
-/*
-	strcpy( logi.log[ ++logi.possition ], result );
-*/
+
 }
 
 
@@ -52,5 +51,14 @@ error resize_array_log( ) {
 
 error write_log( ) {
 
+	FILE* plik;
+	int i;
 
+	if( ( plik = fopen( "data/program.log", "w" ) ) == NULL ) return FOPEN_ERROR;
+
+	for( i=0; i < logi.possition; i++ ) {
+		fprintf( plik, "%s\n", logi.log[i] );
+	}
+
+	return FINE;
 }
