@@ -5,6 +5,8 @@
 #include "args.h"
 #include "error_handling.h"
 #include "graphics.h"
+#include "program_log.h"
+
 
 error arg_handling( struct args* argumenty, int argc, char **argv ) {
 
@@ -26,15 +28,15 @@ error arg_handling( struct args* argumenty, int argc, char **argv ) {
 	while( ( opt = getopt( argc, argv, "f:n:k:r:o:i:x:y:" ) ) != -1 ) {
 		switch( opt ) {
 			case 'f':
-				argumenty->file_in = optarg;
-				#ifdef DEBUG
-					printf( "\tPodana nazwa pliku z danymi to: %s.\n", argumenty->file_in );
-				#endif
+				argumenty->file_in = optarg;		
+	
+				add_log( "Podana nazwa pliku z danymi to: %s", optarg );
+
 				break;
 			case 'n':
-				#ifdef DEBUG
-					printf( "\tPodana liczba generacji to: %s.\n", optarg );
-				#endif
+
+				add_log( "Podana liczba generacji to: %s", optarg );
+
 				argumenty->n = atoi( optarg );
 				if ( (argumenty->n <= 0) || argumenty->n > MAX_N ) {
 					argumenty->n = N_DEFAULT; /* jeżeli podano nieprawidłową liczbe przypisuję wartość domyślną */

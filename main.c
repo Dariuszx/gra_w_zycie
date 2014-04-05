@@ -9,6 +9,7 @@
 #include "bool.h"
 #include "graphics.h"
 #include "garbage_collection.h"
+#include "program_log.h"
 
 int main( int argc, char **argv ) {
 
@@ -19,6 +20,8 @@ int main( int argc, char **argv ) {
    	struct graphics screen_settings; /* ustawienia graficzne */ 
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
 	struct mesh siatka; /* struktura siatki */;
+
+	if ( initialize_log( 32 ) != FINE ) return MALLOC_ERROR; /* Tworzę strukturę do przechowywania logów z programu */
 
 	/* W tym miejscu wczytuję kolejno moduły */
 	while( wczytaj_modul == true ) {

@@ -4,15 +4,16 @@ HEADERS = ../modules/headers
 LIBS = ../modules/lib
 OBJECTS = main.o arg_handling.o error_handling.o data_loading.o cellular_automaton.o data_saving.o image_generation.o cellular_select_rules.o cellular_formation_generation.o mesh.o graphics.o 
 
-OBJECTS += garbage_collection.o
+OBJECTS += program_log.o garbage_collection.o
 
 main.o arg_handling.o cellular_automaton.o : $(HEADERS)/args.h
 garbage_collection.o data_loading.o cellular_automaton.o data_saving.o image_generation.o mesh.o: $(HEADERS)/mesh.h
 cellular_automaton.o garbage_collection.o : $(HEADERS)/rules.h
 main.o : $(HEADERS)/bool.h
-arg_handling.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o: $(HEADERS)/error_handling.h
+arg_handling.o program_log.o cellular_automaton.o mesh.o data_loading.o data_saving.o error_handling.o image_generation.o: $(HEADERS)/error_handling.h
 main.o cellular_automaton.o image_generation.o graphics.o arg_handling.o data_saving.o : $(HEADERS)/graphics.h
 main.o cellular_formation_generation.o cellular_automaton.o : $(HEADERS)/garbage_collection.h
+arg_handling.o : $(HEADERS)/program_log.h
 
 debug : CFLAGS += -Wall -DDEBUG -g
 debug : CC += @cc
@@ -63,6 +64,10 @@ graphics.o: $(LIBS)/graphics.c
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
 
 garbage_collection.o: $(LIBS)/garbage_collection.c
+	@echo "Kompiluję moduł $@"
+	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
+
+program_log.o: $(LIBS)/program_log.c
 	@echo "Kompiluję moduł $@"
 	$(CC) -c $(CFLAGS) -I$(HEADERS) $^
 
