@@ -13,18 +13,18 @@
 
     char *about_1 =  "Usage: gra_w_zycie [options]\n"
                         "\t Opcje wczytywania/zapisywania danych:\n"
-                            "\t\t -f \t\tNazwa pliku z współrzędnymi siatki\n"
-                            "\t\t -o \t\tNazwa pliku do którego będzie zapisana wynikowa siatko po n generacjach\n"
-                            "\t\t -r \t\tNazwa pliku z zasadami tworzenia nowych generacji\n"
+                            "\t\t -f \t\tNazwa pliku z współrzędnymi siatki. %s[DEFAULT=%s]%s\n"
+                            "\t\t -o \t\tNazwa pliku do którego będzie zapisana wynikowa siatko po n generacjach %s[DEFAULT=%s]%s\n"
+                            "\t\t -r \t\tNazwa pliku z zasadami tworzenia nowych generacji %s[DEFAULT=%s]%s\n"
                             "\t\t -i \t\tNazwa katalogu do którego będą zapisane wygenerowane obrazki\n";
                         
 	char *about_2 = 
 					"\t Opcje generacji:\n"
-                    	"\t\t -n \t\tIlość przeprowadzonych generacji na zadanej siatce\n"
-                       	"\t\t -k \t\tIlość obrazków do wygenerowania\n"
+                    	"\t\t -n \t\tIlość przeprowadzonych generacji na zadanej siatce %s[DEFAULT=%d]%s\n"
+                       	"\t\t -k \t\tIlość obrazków do wygenerowania %s[DEFAULT=%d]%s\n"
                   	"\t Opcje wyświetlania:\n"
-                       	"\t\t -x \t\tSzerokość w pixelach wygenerowanego obrazka\n"
-                       	"\t\t -y \t\tWysokość w pixelach wygenerowanego obrazka\n"
+                       	"\t\t -x \t\tSzerokość w pixelach wygenerowanego obrazka %s[DEFAULT=%dpx]%s\n"
+                       	"\t\t -y \t\tWysokość w pixelach wygenerowanego obrazka %s[DEFAULT=%dpx]%s\n"
                   	"\n\tWygenerowne pliki znajdują się w katalogu data/\n"
                    	"\tInformacje o działaniu programu znajdują się w /data/program.log\n\n";
 
@@ -61,7 +61,8 @@ int main( int argc, char **argv ) {
 				break;
 		}
 		if ( error_handling( error_code ) ) {
-			printf( "%s%s", about_1, about_2 );
+			printf( about_1, COLOR_RED, FILE_IN_DEFAULT, COLOR_RESET, COLOR_RED, FILE_OUT_DEFAULT, COLOR_RESET, COLOR_RED, RULES_DEFAULT, COLOR_RESET );
+			printf( about_2, COLOR_RED, N_DEFAULT, COLOR_RESET, COLOR_RED, K_DEFAULT, COLOR_RESET, COLOR_RED, X_RESOLUTION, COLOR_RESET, COLOR_RED, Y_RESOLUTION, COLOR_RESET );
 			break; /* krytyczny błąd, zamykam program */
 		}
 		modul_id++;  
