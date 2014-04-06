@@ -39,6 +39,8 @@ int main( int argc, char **argv ) {
 	struct args argumenty; /* tutaj przechowuję argumenty wywołane przez użytkownika */
 	struct mesh siatka; /* struktura siatki */;
 
+	siatka.siatka = NULL;
+
 	if ( initialize_log( 32 ) != FINE ) return MALLOC_ERROR; /* Tworzę strukturę do przechowywania logów z programu */
 
 	/* W tym miejscu wczytuję kolejno moduły */
